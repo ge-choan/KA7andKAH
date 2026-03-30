@@ -106,13 +106,14 @@
     return o;
   }
 
-  function sortedFlatScores(participants, pred, i0, i1) {
+  /** 某背景組內，每位受試者於題組 [i0,i1) 十題的算術平均（每人一個值，供箱型圖） */
+  function perPersonBlockMeans(participants, pred, i0, i1) {
     const out = [];
     participants.forEach((p) => {
       if (!pred(p)) return;
-      for (let i = i0; i < i1; i++) out.push(p.scores[i]);
+      const slice = p.scores.slice(i0, i1);
+      out.push(mean(slice));
     });
-    out.sort((a, b) => a - b);
     return out;
   }
 
@@ -131,9 +132,46 @@
         const n = participants.filter(pred).length;
         out[name][g] = {
           n,
-          q1_10: sortedFlatScores(participants, pred, 0, 10),
-          q11_20: sortedFlatScores(participants, pred, 10, 20),
-          q21_30: sortedFlatScores(participants, pred, 20, 30),
+          q1_10: perPersonBlockMeans(participants, pred, 0, 10),
+          q11_20: perPersonBlockMeans(participants, pred, 10, 20),
+          q21_30: perPersonBlockMeans(participants, pred, 20, 30),
+        };
+      });
+    });
+    return out;
+  }
+
+  /** 題組內每個分數 1–5 的回答筆數（逐題累計；每位受試者該段 10 題即 10 筆） */
+  function countScoresInRange(participants, pred, i0, i1) {
+    const counts = [0, 0, 0, 0, 0];
+    participants.forEach((p) => {
+      if (!pred(p)) return;
+      for (let i = i0; i < i1; i++) {
+        const s = p.scores[i];
+        if (s >= 1 && s <= 5) counts[s - 1] += 1;
+      }
+    });
+    return counts;
+  }
+
+  function buildGroupScoreCounts(participants) {
+    const dims = [
+      ['年齡', (p) => p.age, ageOrder],
+      ['口語程度', (p) => p.oral, oralOrder],
+      ['家庭台語背景', (p) => p.fam, famOrder],
+      ['書面程度', (p) => p.written, writtenOrder],
+    ];
+    const out = {};
+    dims.forEach(([name, getter, order]) => {
+      out[name] = {};
+      order.forEach((g) => {
+        const pred = (p) => getter(p) === g;
+        const n = participants.filter(pred).length;
+        out[name][g] = {
+          n,
+          q1_10: countScoresInRange(participants, pred, 0, 10),
+          q11_20: countScoresInRange(participants, pred, 10, 20),
+          q21_30: countScoresInRange(participants, pred, 20, 30),
         };
       });
     });
@@ -350,6 +388,7 @@
       per_question_scores,
       per_question_rt,
       group_scores: buildGroupScores(participants),
+      group_score_counts: buildGroupScoreCounts(participants),
       spearman: buildSpearman(participants),
       crosstab_fam_oral: crosstabMeans(participants, (p) => p.fam, (p) => p.oral, famOrder, oralOrder),
       crosstab_fam_written: crosstabMeans(participants, (p) => p.fam, (p) => p.written, famOrder, writtenOrder),
