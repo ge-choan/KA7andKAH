@@ -352,6 +352,359 @@
         border-top: 1px dashed var(--border);
       }
 
+      /* INDIVIDUAL RESPONSES (單一受試者逐題回應) */
+      #individual {
+        margin-top: 22px;
+        padding-top: 10px;
+        border-top: 1px dashed var(--border);
+      }
+
+      .indiv-controls {
+        display: flex;
+        gap: 16px;
+        flex-wrap: wrap;
+        margin: 14px 0 10px;
+        align-items: flex-end;
+      }
+
+      .indiv-control {
+        min-width: 260px;
+      }
+
+      .indiv-control label {
+        display: block;
+        font-weight: 700;
+        color: var(--primary);
+        font-size: 13.5px;
+        margin-bottom: 6px;
+      }
+
+      .indiv-participant-row {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+
+      .indiv-participant-row .indiv-select {
+        flex: 1;
+        min-width: 220px;
+      }
+
+      .indiv-nav-btns {
+        display: flex;
+        gap: 8px;
+        flex-wrap: nowrap;
+        margin-bottom: 2px;
+      }
+
+      .indiv-nav-btn {
+        border: 1px solid var(--border);
+        background: #fff;
+        color: var(--primary);
+        border-radius: 8px;
+        padding: 8px 10px;
+        font-size: 13.5px;
+        cursor: pointer;
+        font-weight: 800;
+        line-height: 1;
+      }
+
+      .indiv-nav-btn:hover {
+        background: var(--light);
+      }
+
+      .indiv-nav-btn:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
+      }
+
+      .indiv-nav-btn:disabled {
+        opacity: 0.55;
+        cursor: not-allowed;
+      }
+
+      .indiv-select {
+        width: 100%;
+        padding: 8px 12px;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        font-size: 14px;
+        font-family: inherit;
+        background: #fff;
+        color: var(--text);
+      }
+
+      .indiv-summary {
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 12px 14px;
+        margin: 12px 0;
+      }
+
+      .indiv-summary-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 18px;
+        margin: 6px 0;
+        align-items: baseline;
+      }
+
+      .indiv-summary-item {
+        font-size: 15px;
+      }
+
+      .indiv-open-text {
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 12px 14px;
+        margin: 10px 0 14px;
+        white-space: pre-wrap;
+        color: var(--text);
+      }
+
+      .indiv-grid-wrap {
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 12px 14px;
+        margin-top: 10px;
+        overflow-x: auto;
+      }
+
+      .indiv-age-chart {
+        width: 100%;
+        min-height: 240px;
+        margin: 10px 0 14px;
+      }
+
+      /* FILTER PANEL */
+      .indiv-filter-panel {
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 14px 14px;
+        margin-top: 8px;
+        margin-bottom: 14px;
+      }
+
+      .indiv-panel-title {
+        font-size: 14px;
+        color: var(--primary);
+        font-weight: 800;
+        margin: 0 0 10px;
+        line-height: 1.25;
+      }
+
+      .indiv-filter-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(220px, 1fr));
+        row-gap: 12px;
+        column-gap: 0;
+      }
+
+      /* 用欄位交界畫垂直分隔線 */
+      .indiv-filter-control {
+        min-width: 0;
+        padding-left: 0;
+        padding-right: 0;
+        border-left: none;
+      }
+
+      /* 4 欄：年齡 | 口語 | 家庭 | 書面 */
+      .indiv-filter-control.filter-oral,
+      .indiv-filter-control.filter-fam,
+      .indiv-filter-control.filter-written {
+        border-left: 1px solid var(--border);
+        padding-left: 14px;
+      }
+      .indiv-filter-control.filter-age,
+      .indiv-filter-control.filter-oral,
+      .indiv-filter-control.filter-fam {
+        padding-right: 14px;
+      }
+
+      .indiv-filter-control label {
+        display: block;
+        font-weight: 800;
+        color: var(--primary);
+        font-size: 13.5px;
+        margin-bottom: 6px;
+      }
+
+      .indiv-filter-select {
+        width: 100%;
+        padding: 8px 10px;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        font-size: 14px;
+        font-family: inherit;
+        background: #fff;
+        color: var(--text);
+      }
+
+      .indiv-filter-help {
+        margin-top: 10px;
+        font-size: 13px;
+        color: var(--subtext);
+      }
+
+      .indiv-filter-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .indiv-filter-mini-actions {
+        display: flex;
+        gap: 8px;
+        flex-wrap: nowrap;
+      }
+
+      .indiv-mini-btn {
+        border: 1px solid var(--border);
+        background: #fff;
+        color: var(--primary);
+        border-radius: 6px;
+        padding: 6px 8px;
+        font-size: 12px;
+        cursor: pointer;
+        font-weight: 800;
+        line-height: 1;
+      }
+
+      .indiv-mini-btn:hover {
+        background: var(--light);
+      }
+
+      .indiv-mini-btn:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
+      }
+
+      .indiv-toggle-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        padding-top: 8px;
+      }
+
+      .indiv-toggle-btn {
+        border: 1px solid var(--border);
+        background: #fff;
+        color: var(--primary);
+        border-radius: 999px;
+        padding: 8px 12px;
+        font-size: 13px;
+        cursor: pointer;
+        font-weight: 800;
+        line-height: 1;
+        user-select: none;
+      }
+
+      .indiv-toggle-btn.active {
+        background: var(--accent);
+        border-color: var(--accent);
+        color: #fff;
+      }
+
+      .indiv-filter-divider {
+        display: none;
+      }
+
+      /* 排序切換：滑塊式 switcher */
+      .indiv-order-switcher {
+        display: flex;
+        align-items: center;
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        padding: 3px;
+        background: #fff;
+      }
+      .indiv-order-switcher input {
+        display: none;
+      }
+      .indiv-order-switcher label {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 8px 12px;
+        font-weight: 900;
+        font-size: 13px;
+        cursor: pointer;
+        color: var(--subtext);
+        border-radius: 999px;
+        line-height: 1;
+        margin: 0;
+        transition: background 0.15s ease, color 0.15s ease;
+        user-select: none;
+      }
+      .indiv-order-switcher input:checked + label {
+        background: var(--accent);
+        color: #fff;
+      }
+
+      .indiv-grid-note {
+        font-size: 13px;
+        color: var(--subtext);
+        margin-bottom: 10px;
+      }
+
+      .indiv-grid-table {
+        border-collapse: collapse;
+        table-layout: fixed;
+        width: max-content;
+      }
+
+      .indiv-grid-table td {
+        border: 1px solid var(--border);
+        text-align: center;
+        font-weight: 800;
+        font-size: 13.5px;
+        padding: 0;
+        cursor: default;
+        user-select: none;
+        width: 44px;
+        height: 44px;
+      }
+
+      .indiv-grid-table td:hover {
+        outline: 2px solid var(--accent);
+        outline-offset: -2px;
+      }
+
+      .indiv-cell-tooltip {
+        display: none;
+        position: fixed;
+        z-index: 320;
+        max-width: min(360px, calc(100vw - 24px));
+        padding: 11px 14px;
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
+        font-size: 13px;
+        line-height: 1.55;
+        color: var(--text);
+        pointer-events: none;
+      }
+
+      .indiv-cell-tooltip .tip-id {
+        font-weight: 800;
+        color: var(--primary);
+        margin-bottom: 6px;
+      }
+
+      .indiv-cell-tooltip .tip-stem {
+        font-size: 12.5px;
+        color: var(--subtext);
+        white-space: pre-wrap;
+      }
+
       /* 30 題置中金字塔：左側說明 + 橫向捲軸 */
       .pyramid-overview-outer {
         width: 100%;
@@ -574,6 +927,21 @@
         margin-top: 20px;
       }
 
+      @media (max-width: 920px) {
+        /* 3 欄：年齡 | 口語 | 家庭；書面換到下一列 */
+        .indiv-filter-grid {
+          grid-template-columns: repeat(3, minmax(220px, 1fr));
+        }
+        .indiv-filter-control.filter-written {
+          border-left: none;
+          padding-left: 0;
+          padding-right: 0;
+        }
+        .indiv-filter-control.filter-fam {
+          padding-right: 0;
+        }
+      }
+
       @media (max-width: 700px) {
         section {
           padding: 20px 16px;
@@ -585,6 +953,38 @@
           padding: 12px 8px;
           font-size: 12px;
         }
+
+        /* 2 欄：年齡 | 口語；家庭 | 書面 */
+        .indiv-filter-grid {
+          grid-template-columns: repeat(2, minmax(220px, 1fr));
+        }
+        .indiv-filter-control.filter-fam {
+          border-left: none;
+          padding-left: 0;
+          padding-right: 14px;
+        }
+        .indiv-filter-control.filter-oral {
+          padding-right: 0;
+        }
+        .indiv-filter-control.filter-written {
+          border-left: 1px solid var(--border);
+          padding-left: 14px;
+          padding-right: 0;
+        }
+      }
+
+      @media (max-width: 520px) {
+        .indiv-filter-grid {
+          grid-template-columns: 1fr;
+        }
+        .indiv-filter-control.filter-age,
+        .indiv-filter-control.filter-oral,
+        .indiv-filter-control.filter-fam,
+        .indiv-filter-control.filter-written {
+          border-left: none;
+          padding-left: 0;
+          padding-right: 0;
+        }
       }
     </style>
   </head>
@@ -593,7 +993,8 @@
       <div class="brand">台語「共/佮」實驗</div>
       <a href="#intro">研究背景</a>
       <a href="#sample">受試者</a>
-      <a href="#scores">各題得分</a>
+      <a href="#individual">個別回應</a>
+      <a href="#scores">各題數值</a>
       <a href="#factors">背景變數</a>
       <a href="#crosstab">交叉分析</a>
       <a href="#rt">回答時間</a>
@@ -668,13 +1069,239 @@
         </div>
       </section>
 
+      <!-- ===== SECTION: INDIVIDUAL RESPONSES ===== -->
+      <section id="individual">
+        <h2><span class="sec-num">2</span>個別回應</h2>
+
+        <div class="indiv-filter-panel">
+          <h3 class="indiv-panel-title">篩選條件</h3>
+          <div class="indiv-filter-grid">
+            <div class="indiv-filter-control filter-age">
+              <div class="indiv-filter-head">
+                <label>年齡</label>
+                <div class="indiv-filter-mini-actions">
+                  <button
+                    type="button"
+                    id="indiv-filter-age-select-all"
+                    class="indiv-mini-btn"
+                  >
+                    全選
+                  </button>
+                  <button
+                    type="button"
+                    id="indiv-filter-age-clear"
+                    class="indiv-mini-btn"
+                  >
+                    清除
+                  </button>
+                </div>
+              </div>
+              <div
+                id="indiv-filter-age-options"
+                class="indiv-toggle-group"
+                role="group"
+                aria-label="年齡選項"
+              ></div>
+            </div>
+
+            <div class="indiv-filter-divider"></div>
+
+            <div class="indiv-filter-control filter-oral">
+              <div class="indiv-filter-head">
+                <label>口語程度</label>
+                <div class="indiv-filter-mini-actions">
+                  <button
+                    type="button"
+                    id="indiv-filter-oral-select-all"
+                    class="indiv-mini-btn"
+                  >
+                    全選
+                  </button>
+                  <button
+                    type="button"
+                    id="indiv-filter-oral-clear"
+                    class="indiv-mini-btn"
+                  >
+                    清除
+                  </button>
+                </div>
+              </div>
+              <div
+                id="indiv-filter-oral-options"
+                class="indiv-toggle-group"
+                role="group"
+                aria-label="口語程度選項"
+              ></div>
+            </div>
+
+            <div class="indiv-filter-divider"></div>
+
+            <div class="indiv-filter-control filter-fam">
+              <div class="indiv-filter-head">
+                <label>家庭台語背景</label>
+                <div class="indiv-filter-mini-actions">
+                  <button
+                    type="button"
+                    id="indiv-filter-fam-select-all"
+                    class="indiv-mini-btn"
+                  >
+                    全選
+                  </button>
+                  <button
+                    type="button"
+                    id="indiv-filter-fam-clear"
+                    class="indiv-mini-btn"
+                  >
+                    清除
+                  </button>
+                </div>
+              </div>
+              <div
+                id="indiv-filter-fam-options"
+                class="indiv-toggle-group"
+                role="group"
+                aria-label="家庭台語背景選項"
+              ></div>
+            </div>
+
+            <div class="indiv-filter-divider"></div>
+
+            <div class="indiv-filter-control filter-written">
+              <div class="indiv-filter-head">
+                <label>書面程度</label>
+                <div class="indiv-filter-mini-actions">
+                  <button
+                    type="button"
+                    id="indiv-filter-written-select-all"
+                    class="indiv-mini-btn"
+                  >
+                    全選
+                  </button>
+                  <button
+                    type="button"
+                    id="indiv-filter-written-clear"
+                    class="indiv-mini-btn"
+                  >
+                    清除
+                  </button>
+                </div>
+              </div>
+              <div
+                id="indiv-filter-written-options"
+                class="indiv-toggle-group"
+                role="group"
+                aria-label="書面程度選項"
+              ></div>
+            </div>
+          </div>
+          <div class="indiv-filter-help">
+            未選取任何條件代表「全部」。
+          </div>
+        </div>
+
+        <div class="indiv-controls">
+          <div class="indiv-control">
+            <label for="indiv-participant-select">受試者</label>
+            <div class="indiv-participant-row">
+              <select
+                id="indiv-participant-select"
+                class="indiv-select"
+              ></select>
+              <div class="indiv-nav-btns" aria-label="快速切換受試者">
+                <button
+                  type="button"
+                  id="indiv-prev-btn"
+                  class="indiv-nav-btn"
+                  aria-label="上一位受試者"
+                >
+                  &lt;
+                </button>
+                <button
+                  type="button"
+                  id="indiv-next-btn"
+                  class="indiv-nav-btn"
+                  aria-label="下一位受試者"
+                >
+                  &gt;
+                </button>
+                <button
+                  type="button"
+                  id="indiv-dice-btn"
+                  class="indiv-nav-btn"
+                  aria-label="隨機查看某一位受試者"
+                  title="隨機查看"
+                >
+                  骰子
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="indiv-control">
+            <label>排序</label>
+            <div
+              class="indiv-order-switcher"
+              role="radiogroup"
+              aria-label="排序方式"
+            >
+              <input
+                type="radio"
+                id="indiv-order-answer"
+                name="indiv-order"
+                value="answer"
+                checked
+              />
+              <label for="indiv-order-answer">依照回答順序</label>
+              <input
+                type="radio"
+                id="indiv-order-qid"
+                name="indiv-order"
+                value="qid"
+              />
+              <label for="indiv-order-qid">依照題目ID</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="indiv-summary">
+          <div class="indiv-summary-row">
+            <div class="indiv-summary-item">
+              年齡層：<strong id="indiv-age">—</strong>
+            </div>
+            <div class="indiv-summary-item">
+              口語程度：<strong id="indiv-oral">—</strong>
+            </div>
+            <div class="indiv-summary-item">
+              家庭台語背景：<strong id="indiv-fam">—</strong>
+            </div>
+            <div class="indiv-summary-item">
+              書面程度：<strong id="indiv-written">—</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="indiv-grid-wrap">
+          <div class="indiv-grid-note">
+            30 題逐題回應數值（1–5）。10 欄 3 列由左到右由上到下；hover 顯示題目 ID 與題幹。
+          </div>
+          <table
+            id="indiv-grid-table"
+            class="indiv-grid-table"
+            aria-label="受試者個別回應表格（10x3）"
+          ></table>
+        </div>
+
+        <h3>開放題回應</h3>
+        <div id="indiv-open-text" class="indiv-open-text">—</div>
+      </section>
+
       <!-- ===== SECTION 3: PER-QUESTION SCORES ===== -->
       <section id="scores">
-        <h2><span class="sec-num">2</span>各題得分分布</h2>
+        <h2><span class="sec-num">3</span>各題數值分布</h2>
         <p>
           下方先呈現<strong>30 題總覽</strong>，再接<strong
             >單題 histogram</strong
-          >。點擊總覽各欄下方的<strong>題號</strong>，會同步切換下方單題圖表與選單；亦可用下拉選單選題。將游標懸停題號上可預覽<strong>題幹</strong>與<strong>平均得分</strong>。
+          >。點擊總覽各欄下方的<strong>題號</strong>，會同步切換下方單題圖表與選單；亦可用下拉選單選題。將游標懸停題號上可預覽<strong>題幹</strong>與<strong>平均數值</strong>。
         </p>
         <div class="note">
           量表範圍
@@ -687,11 +1314,11 @@
           <code>web</code>。
         </div>
 
-        <h3 style="margin-top: 28px">30 題得分總覽（置中金字塔）</h3>
+        <h3 style="margin-top: 28px">30 題數值總覽（置中金字塔）</h3>
         <p>
           每題為一欄：<strong
             >上方為 5 分（只能佮）、下方為 1 分（只能共）</strong
-          >；每一條水平長條以<strong>中央鉛直線</strong>對稱向左右延伸，總寬度代表該分的人數。圖表<strong>左側</strong>亦有得分方向說明。<strong>點擊題號</strong>可開啟下方該題詳圖；游標懸停題號可查看<strong>題幹</strong>與<strong>回答平均數</strong>。30
+          >；每一條水平長條以<strong>中央鉛直線</strong>對稱向左右延伸，總寬度代表該分的人數。圖表<strong>左側</strong>亦有數值方向說明。<strong>點擊題號</strong>可開啟下方該題詳圖；游標懸停題號可查看<strong>題幹</strong>與<strong>回答平均數</strong>。30
           題橫向排列；若螢幕寬度不足，請<strong>左右捲動</strong>瀏覽。
         </p>
         <div
@@ -701,7 +1328,7 @@
         ></div>
 
         <div id="qscore-detail">
-          <h3 style="margin-top: 36px">單題得分（histogram）</h3>
+          <h3 style="margin-top: 36px">單題數值（histogram）</h3>
           <p>
             從選單選擇題號（1–30），或自上方總覽<strong>點擊題號</strong>連動至此。圖為該題
             1–5 分之人數分布。
@@ -730,7 +1357,7 @@
 
       <!-- ===== SECTION 4: BACKGROUND FACTORS ===== -->
       <section id="factors">
-        <h2><span class="sec-num">3</span>背景變數對得分的影響</h2>
+        <h2><span class="sec-num">4</span>背景變數對數值的影響</h2>
 
         <h3>Spearman 相關係數</h3>
         <p>
@@ -739,7 +1366,7 @@
         </p>
         <div id="spearman_table"></div>
 
-        <h3 style="margin-top: 28px">各組別得分分布</h3>
+        <h3 style="margin-top: 28px">各組別數值分布</h3>
         <p>
           先選<strong>背景變數</strong>分頁，再以<strong>圖表類型</strong>切換：<strong>箱型圖</strong>將每位受試者於該題組內十題取算術平均（每人一點）；<strong>置中金字塔</strong>則與上方「30
           題總覽」相同幾何——將該組在該題組內<strong
@@ -811,9 +1438,9 @@
 
       <!-- ===== SECTION 5: CROSS-TAB ===== -->
       <section id="crosstab">
-        <h2><span class="sec-num">4</span>交叉分組分析</h2>
+        <h2><span class="sec-num">5</span>交叉分組分析</h2>
         <p>
-          選擇兩個背景變數的交叉組合，觀察各子組在三個題組的平均得分。格子內數字為平均分及各組
+          選擇兩個背景變數的交叉組合，觀察各子組在三個題組的平均數值。格子內數字為平均分及各組
           N。顏色越藍代表越偏「共」（分數低），越紅代表越偏「佮」（分數高）。
         </p>
         <div class="note">
@@ -859,7 +1486,7 @@
 
       <!-- ===== SECTION 6: REACTION TIME ===== -->
       <section id="rt">
-        <h2><span class="sec-num">5</span>回答時間分析（判斷難度）</h2>
+        <h2><span class="sec-num">6</span>回答時間分析（判斷難度）</h2>
         <p>
           回答時間（毫秒）可作為判斷難度的指標：反應越慢，代表語者在該題的判斷越猶豫。分析採中位數（對極端值更穩健），並將超過
           30 秒的極端值截斷。
@@ -1049,7 +1676,7 @@
           pConfig,
         );
       }
-      /* ─────────── SECTION 2: 單題得分 histogram ─────────── */
+      /* ─────────── SECTION 2: 單題數值 histogram ─────────── */
       function qScoreDesignLine(q) {
         if (q <= 10) return "題組：1–10（預期偏「共」）";
         if (q <= 20) return "題組：11–20（預期兩者皆可）";
@@ -1144,13 +1771,13 @@
           {
             ...pLayout,
             title: {
-              text: `第 ${q} 題得分分布（N=${n}${Number.isFinite(mean) ? `，平均=${mean.toFixed(2)}` : ""}）`,
+              text: `第 ${q} 題數值分布（N=${n}${Number.isFinite(mean) ? `，平均=${mean.toFixed(2)}` : ""}）`,
               font: { size: 14 },
               x: 0,
             },
             xaxis: {
               title: {
-                text: "得分（1=只能共 … 5=只能佮）",
+                text: "數值（1=只能共 … 5=只能佮）",
                 font: { size: 12 },
               },
               range: [0.4, 5.6],
@@ -1278,7 +1905,7 @@
           cap.setAttribute("tabindex", "0");
           cap.setAttribute(
             "aria-label",
-            `題${q}，點擊以於下方顯示該題 histogram；懸停或聚焦可讀取題幹與平均得分`,
+            `題${q}，點擊以於下方顯示該題 histogram；懸停或聚焦可讀取題幹與平均數值`,
           );
           cap.addEventListener("click", (ev) => onPyramidCapActivate(ev, q));
           cap.addEventListener("keydown", (ev) => {
@@ -1589,7 +2216,7 @@
                     base: bases,
                     marker: { color: barColors[si], line: { width: 0 } },
                     customdata: counts,
-                    hovertemplate: `${escapeHtml(gLabel)}　${blockTitles[si]}<br>得分 %{y}：%{customdata} 筆<extra></extra>`,
+                    hovertemplate: `${escapeHtml(gLabel)}　${blockTitles[si]}<br>數值 %{y}：%{customdata} 筆<extra></extra>`,
                   },
                 ],
                 {
@@ -2055,6 +2682,355 @@
         drawRtHeatmap();
       }
 
+      /* ─────────── SECTION: INDIVIDUAL RESPONSES ─────────── */
+      let _indivCellTooltipEl = null;
+      function ensureIndivCellTooltip() {
+        if (!_indivCellTooltipEl) {
+          _indivCellTooltipEl = document.createElement("div");
+          _indivCellTooltipEl.id = "indiv_cell_tooltip";
+          _indivCellTooltipEl.className = "indiv-cell-tooltip";
+          _indivCellTooltipEl.setAttribute("role", "tooltip");
+          document.body.appendChild(_indivCellTooltipEl);
+        }
+        return _indivCellTooltipEl;
+      }
+
+      function positionIndivCellTooltip(ev) {
+        const tip = _indivCellTooltipEl;
+        if (!tip || tip.style.display === "none") return;
+        const pad = 14;
+        const cx = Number.isFinite(ev.clientX) ? ev.clientX : 0;
+        const cy = Number.isFinite(ev.clientY) ? ev.clientY : 0;
+        let x = cx + pad;
+        let y = cy + pad;
+        const r = tip.getBoundingClientRect();
+        if (x + r.width > window.innerWidth - 10) x = cx - r.width - pad;
+        if (y + r.height > window.innerHeight - 10) y = cy - r.height - pad;
+        if (x < 8) x = 8;
+        if (y < 8) y = 8;
+        tip.style.left = `${x}px`;
+        tip.style.top = `${y}px`;
+      }
+
+      function hideIndivCellTooltip() {
+        if (_indivCellTooltipEl) _indivCellTooltipEl.style.display = "none";
+      }
+
+      function showIndivCellTooltip(ev) {
+        const td = ev.currentTarget;
+        const qid = Number(td.dataset.qid);
+        if (!Number.isFinite(qid) || !D || !D.question_bank) return;
+
+        const bank = D.question_bank[qid - 1];
+        const stem = bank && bank.content ? String(bank.content).trim() : "";
+
+        const tip = ensureIndivCellTooltip();
+        tip.innerHTML = `<div class="tip-id">題目ID：${qid}</div><div class="tip-stem">題幹：${escapeHtml(
+          stem || "（題幹未載入）",
+        )}</div>`;
+        tip.style.display = "block";
+        positionIndivCellTooltip(ev);
+      }
+
+      function scoreToCellStyle(score) {
+        // 依照量表 1(只能共) → 5(只能佮) 做視覺化顏色
+        switch (score) {
+          case 1:
+            return { bg: "rgba(46, 134, 193, 0.92)", fg: "#fff" };
+          case 2:
+            return { bg: "rgba(127, 179, 212, 0.85)", fg: "#fff" };
+          case 3:
+            return { bg: "rgba(93, 109, 126, 0.22)", fg: "#2c3e50" };
+          case 4:
+            return { bg: "rgba(214, 137, 16, 0.88)", fg: "#fff" };
+          case 5:
+            return { bg: "rgba(192, 57, 43, 0.92)", fg: "#fff" };
+          default:
+            return { bg: "#f7f9fc", fg: "#2c3e50" };
+        }
+      }
+
+      function getSelectedParticipant() {
+        const sel = document.getElementById("indiv-participant-select");
+        if (!sel || !D || !D.participants) return null;
+        const idx = Number(sel.value);
+        if (!Number.isFinite(idx) || idx < 0 || idx >= D.participants.length)
+          return null;
+        return { idx, participant: D.participants[idx] };
+      }
+
+      function renderIndividualResponses() {
+        if (!D || !D.participants || !D.question_bank) return;
+        const selState = getSelectedParticipant();
+        if (!selState) return;
+        const { participant } = selState;
+
+        const ageEl = document.getElementById("indiv-age");
+        const oralEl = document.getElementById("indiv-oral");
+        const famEl = document.getElementById("indiv-fam");
+        const writtenEl = document.getElementById("indiv-written");
+        const openEl = document.getElementById("indiv-open-text");
+
+        if (ageEl) ageEl.textContent = participant.age || "—";
+        if (oralEl) oralEl.textContent = participant.oral || "—";
+        if (famEl) famEl.textContent = participant.fam || "—";
+        if (writtenEl) writtenEl.textContent = participant.written || "—";
+        if (openEl)
+          openEl.textContent =
+            participant.openText && participant.openText.trim()
+              ? participant.openText.trim()
+              : "（無填答）";
+
+        const orderRadio = document.querySelector(
+          'input[name="indiv-order"]:checked',
+        );
+        const orderMode = orderRadio ? orderRadio.value : "answer";
+
+        const qidList =
+          orderMode === "qid"
+            ? Array.from({ length: 30 }, (_, i) => i + 1)
+            : participant.qidByOrder;
+
+        const table = document.getElementById("indiv-grid-table");
+        if (!table) return;
+        table.innerHTML = "";
+
+        const rows = 3;
+        const cols = 10;
+        for (let r = 0; r < rows; r++) {
+          const tr = document.createElement("tr");
+          for (let c = 0; c < cols; c++) {
+            const idx = r * cols + c;
+            const qid = Number(qidList[idx]);
+            const score = participant.scores[qid - 1];
+            const td = document.createElement("td");
+            td.className = "indiv-score-cell";
+            td.dataset.qid = String(qid);
+            td.textContent =
+              Number.isFinite(score) && score >= 1 && score <= 5
+                ? String(score)
+                : "—";
+            const st = scoreToCellStyle(score);
+            td.style.background = st.bg;
+            td.style.color = st.fg;
+            td.addEventListener("mouseenter", showIndivCellTooltip);
+            td.addEventListener("mousemove", positionIndivCellTooltip);
+            td.addEventListener("mouseleave", hideIndivCellTooltip);
+            tr.appendChild(td);
+          }
+          table.appendChild(tr);
+        }
+      }
+
+      function initIndividualResponses() {
+        const sel = document.getElementById("indiv-participant-select");
+        const prevBtn = document.getElementById("indiv-prev-btn");
+        const nextBtn = document.getElementById("indiv-next-btn");
+        const diceBtn = document.getElementById("indiv-dice-btn");
+        if (!sel || !D || !D.participants) return;
+
+        let filteredParticipantIdxs = [];
+
+        // filterSets：空集合代表該維度「全部」(不限制)
+        const filterSets = {
+          age: new Set(),
+          oral: new Set(),
+          fam: new Set(),
+          written: new Set(),
+        };
+
+        const filterCfg = {
+          age: {
+            key: "age",
+            containerId: "indiv-filter-age-options",
+            values: ageOrder,
+            selectAllBtnId: "indiv-filter-age-select-all",
+            clearBtnId: "indiv-filter-age-clear",
+          },
+          oral: {
+            key: "oral",
+            containerId: "indiv-filter-oral-options",
+            values: oralOrder,
+            selectAllBtnId: "indiv-filter-oral-select-all",
+            clearBtnId: "indiv-filter-oral-clear",
+          },
+          fam: {
+            key: "fam",
+            containerId: "indiv-filter-fam-options",
+            values: famOrder,
+            selectAllBtnId: "indiv-filter-fam-select-all",
+            clearBtnId: "indiv-filter-fam-clear",
+          },
+          written: {
+            key: "written",
+            containerId: "indiv-filter-written-options",
+            values: writtenOrder,
+            selectAllBtnId: "indiv-filter-written-select-all",
+            clearBtnId: "indiv-filter-written-clear",
+          },
+        };
+
+        function syncToggleGroup(containerEl, key) {
+          if (!containerEl) return;
+          containerEl.querySelectorAll(".indiv-toggle-btn").forEach((btn) => {
+            const v = btn.dataset.value;
+            btn.classList.toggle("active", filterSets[key].has(v));
+          });
+        }
+
+        function renderToggleGroup(containerEl, key, values) {
+          if (!containerEl) return;
+          containerEl.innerHTML = "";
+          values.forEach((v) => {
+            const sv = String(v);
+            const btn = document.createElement("button");
+            btn.type = "button";
+            btn.className = "indiv-toggle-btn";
+            btn.dataset.value = sv;
+            btn.textContent = sv;
+            btn.addEventListener("click", () => {
+              if (filterSets[key].has(sv)) filterSets[key].delete(sv);
+              else filterSets[key].add(sv);
+              btn.classList.toggle("active", filterSets[key].has(sv));
+              applyIndivFilters();
+            });
+            containerEl.appendChild(btn);
+          });
+          syncToggleGroup(containerEl, key);
+        }
+
+        function clearIndividualResponses() {
+          const ageEl = document.getElementById("indiv-age");
+          const oralEl = document.getElementById("indiv-oral");
+          const famEl = document.getElementById("indiv-fam");
+          const writtenEl = document.getElementById("indiv-written");
+          const openEl = document.getElementById("indiv-open-text");
+          if (ageEl) ageEl.textContent = "—";
+          if (oralEl) oralEl.textContent = "—";
+          if (famEl) famEl.textContent = "—";
+          if (writtenEl) writtenEl.textContent = "—";
+          if (openEl) openEl.textContent = "（無符合受試者）";
+          const table = document.getElementById("indiv-grid-table");
+          if (table) table.innerHTML = "";
+        }
+
+        function applyIndivFilters() {
+          filteredParticipantIdxs = D.participants
+            .map((p, idx) => ({ p, idx }))
+            .filter(({ p }) => {
+              if (filterSets.age.size && !filterSets.age.has(p.age))
+                return false;
+              if (filterSets.oral.size && !filterSets.oral.has(p.oral))
+                return false;
+              if (filterSets.fam.size && !filterSets.fam.has(p.fam))
+                return false;
+              if (
+                filterSets.written.size &&
+                !filterSets.written.has(p.written)
+              )
+                return false;
+              return true;
+            })
+            .map(({ idx }) => idx);
+
+          sel.innerHTML = "";
+          filteredParticipantIdxs.forEach((idx) => {
+            const p = D.participants[idx];
+            const opt = document.createElement("option");
+            opt.value = String(idx);
+            const namePart = p.name ? `（${p.name}）` : "";
+            opt.textContent = `受試者 ${idx + 1}${namePart}（${p.age}）：${p.oral}/${p.fam}/${p.written}`;
+            sel.appendChild(opt);
+          });
+
+          const hasAny = filteredParticipantIdxs.length > 0;
+          if (prevBtn) prevBtn.disabled = !hasAny;
+          if (nextBtn) nextBtn.disabled = !hasAny;
+          if (diceBtn) diceBtn.disabled = !hasAny;
+
+          if (!hasAny) {
+            hideIndivCellTooltip();
+            clearIndividualResponses();
+            return;
+          }
+
+          sel.value = String(filteredParticipantIdxs[0]);
+          hideIndivCellTooltip();
+          renderIndividualResponses();
+        }
+
+        function setParticipantByFilteredPos(pos) {
+          const len = filteredParticipantIdxs.length;
+          if (!len) return;
+          const curPos = Number.isFinite(pos) ? pos : 0;
+          const newPos = ((curPos % len) + len) % len;
+          sel.value = String(filteredParticipantIdxs[newPos]);
+          hideIndivCellTooltip();
+          renderIndividualResponses();
+        }
+
+        function onParticipantChange() {
+          hideIndivCellTooltip();
+          renderIndividualResponses();
+        }
+
+        function onOrderChange() {
+          hideIndivCellTooltip();
+          renderIndividualResponses();
+        }
+
+        // 初始化 toggle 選項、以及全選/清除按鈕
+        Object.keys(filterCfg).forEach((k) => {
+          const cfg = filterCfg[k];
+          const containerEl = document.getElementById(cfg.containerId);
+          renderToggleGroup(containerEl, cfg.key, cfg.values);
+
+          const selectAllBtn = document.getElementById(cfg.selectAllBtnId);
+          const clearBtn = document.getElementById(cfg.clearBtnId);
+
+          if (selectAllBtn)
+            selectAllBtn.addEventListener("click", () => {
+              filterSets[cfg.key].clear();
+              cfg.values.forEach((v) => filterSets[cfg.key].add(String(v)));
+              syncToggleGroup(containerEl, cfg.key);
+              applyIndivFilters();
+            });
+          if (clearBtn)
+            clearBtn.addEventListener("click", () => {
+              filterSets[cfg.key].clear();
+              syncToggleGroup(containerEl, cfg.key);
+              applyIndivFilters();
+            });
+        });
+
+        sel.addEventListener("change", onParticipantChange);
+
+        const orderRadios = document.querySelectorAll('input[name="indiv-order"]');
+        orderRadios.forEach((r) => r.addEventListener("change", onOrderChange));
+
+        if (prevBtn)
+          prevBtn.addEventListener("click", () => {
+            const curIdx = Number(sel.value);
+            const curPos = filteredParticipantIdxs.indexOf(curIdx);
+            setParticipantByFilteredPos((curPos === -1 ? 0 : curPos) - 1);
+          });
+        if (nextBtn)
+          nextBtn.addEventListener("click", () => {
+            const curIdx = Number(sel.value);
+            const curPos = filteredParticipantIdxs.indexOf(curIdx);
+            setParticipantByFilteredPos((curPos === -1 ? 0 : curPos) + 1);
+          });
+        if (diceBtn)
+          diceBtn.addEventListener("click", () => {
+            const len = filteredParticipantIdxs.length;
+            if (!len) return;
+            const pos = Math.floor(Math.random() * len);
+            setParticipantByFilteredPos(pos);
+          });
+
+        applyIndivFilters();
+      }
+
       async function bootstrap() {
         const note = document.getElementById("data-load-note");
         note.style.display = "none";
@@ -2095,6 +3071,7 @@
             D.per_question_scores,
           ).length;
           renderDashboard();
+          initIndividualResponses();
         } catch (e) {
           note.style.display = "block";
           note.textContent =

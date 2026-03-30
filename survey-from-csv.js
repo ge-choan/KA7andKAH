@@ -79,21 +79,52 @@
     const oral = normalizeOral(row['臺語程度（口語）']);
     const written = normalizeWritten(row['臺語程度（書面）']);
     if (!age || !fam || !oral || !written) return null;
+    const name = String(row['姓名'] || '').trim();
+    const openText = String(row['聲音判斷依據（開放題）'] || '').trim();
     const scores = [];
     const rts = [];
+    // qidByOrder[order-1] = qid; 用於「依照回答順序排列」
+    // 若呈現順序資料不完整，最後會退回到依題目 ID 的排序。
+    let qidByOrder = new Array(NUM_Q).fill(null);
+    let okOrder = true;
     for (let q = 1; q <= NUM_Q; q++) {
       const sk = row[`${q}_回答結果`];
       const rtKey = `${q}_回答時間毫秒`;
       if (sk === undefined || sk === null || String(sk).trim() === '') return null;
       const sc = Number(sk);
       if (!Number.isFinite(sc) || sc < 1 || sc > 5) return null;
+      const orderKey = `${q}_呈現順序`;
+      const ordRaw = row[orderKey];
+      const ord = ordRaw === '' || ordRaw === undefined || ordRaw === null ? NaN : Number(ordRaw);
+      if (!Number.isFinite(ord) || ord < 1 || ord > NUM_Q) {
+        okOrder = false;
+      } else if (qidByOrder[ord - 1] != null) {
+        okOrder = false; // 避免重複/不完整
+      } else {
+        qidByOrder[ord - 1] = q;
+      }
       const rtRaw = row[rtKey];
       const rt = rtRaw === '' || rtRaw === undefined || rtRaw === null ? NaN : Number(rtRaw);
       if (!Number.isFinite(rt)) return null;
       scores.push(sc);
       rts.push(Math.min(RT_CAP_MS, rt));
     }
-    return { age, fam, oral, written, scores, rts };
+    if (!okOrder || qidByOrder.some((v) => v == null)) {
+      // 退回：題目 ID 排序（1..30）
+      qidByOrder = Array.from({ length: NUM_Q }, (_, i) => i + 1);
+    }
+    return {
+      id: null, // 由 buildSurveyD 後續補上（用於 UI）
+      name,
+      openText,
+      age,
+      fam,
+      oral,
+      written,
+      scores,
+      rts,
+      qidByOrder,
+    };
   }
 
   function countInOrder(participants, getter, order) {
@@ -363,9 +394,14 @@
 
   function buildSurveyD(flatRows) {
     const participants = [];
-    flatRows.forEach((row) => {
+    flatRows.forEach((row, idx) => {
       const p = parseParticipant(row);
-      if (p) participants.push(p);
+      if (p) {
+        // 以「有效受試者序號」作為 UI 顯示/選擇用 id（不依賴姓名）
+        p.id = participants.length + 1;
+        p._rowIndex = idx;
+        participants.push(p);
+      }
     });
     if (!participants.length) throw new Error('沒有任何完整有效問卷列');
 
@@ -385,6 +421,7 @@
 
     return {
       demographics,
+      participants,
       per_question_scores,
       per_question_rt,
       group_scores: buildGroupScores(participants),
