@@ -625,6 +625,12 @@
         color: var(--subtext);
       }
 
+      .indiv-filter-match-count {
+        margin-top: 6px;
+        font-size: 12px;
+        color: var(--subtext);
+      }
+
       .indiv-filter-head {
         display: flex;
         justify-content: space-between;
@@ -787,7 +793,7 @@
         margin-bottom: 6px;
       }
 
-      /* 30 題置中金字塔：左側說明 + 橫向捲軸 */
+      /* 30 題金字塔圖：左側說明 + 橫向捲軸 */
       .pyramid-overview-outer {
         width: 100%;
         margin: 16px 0;
@@ -931,7 +937,7 @@
         color: var(--subtext);
       }
 
-      /* 背景變數：分組 × 三段題組 置中金字塔（與 30 題總覽相同幾何） */
+      /* 背景變數：分組 × 三段題組 金字塔圖（與 30 題總覽相同幾何） */
       .factor-pyramid-host {
         width: 100%;
         margin-top: 4px;
@@ -1128,7 +1134,11 @@
             >
               &lt;
             </button>
-            <div id="design-group-label" class="qscore-select" aria-live="polite">
+            <div
+              id="design-group-label"
+              class="qscore-select"
+              aria-live="polite"
+            >
               題 1–10（預期倚共）
             </div>
             <button
@@ -1149,11 +1159,19 @@
 
         <h3>量表說明</h3>
         <div class="scale-bar">
-          <div style="background: #2e86c1">1<br /><small>：干焦會當共</small></div>
-          <div style="background: #5dade2">2<br /><small>：khah倚共</small></div>
+          <div style="background: #2e86c1">
+            1<br /><small>：干焦會當共</small>
+          </div>
+          <div style="background: #5dade2">
+            2<br /><small>：khah倚共</small>
+          </div>
           <div style="background: #85929e">3<br /><small>：攏會當</small></div>
-          <div style="background: #e59866">4<br /><small>：khah倚佮</small></div>
-          <div style="background: #cb4335">5<br /><small>：干焦會當佮</small></div>
+          <div style="background: #e59866">
+            4<br /><small>：khah倚佮</small>
+          </div>
+          <div style="background: #cb4335">
+            5<br /><small>：干焦會當佮</small>
+          </div>
         </div>
       </section>
 
@@ -1301,6 +1319,9 @@
             </div>
           </div>
           <div class="indiv-filter-help">無選取任何條件代表「全部」。</div>
+          <div class="indiv-filter-match-count" id="indiv-filter-match-count">
+            符合篩選條件 ê 受試者：0 人
+          </div>
         </div>
 
         <div class="indiv-controls">
@@ -1420,14 +1441,14 @@
                   <button
                     type="button"
                     id="qscore-filter-age-select-all"
-                    class="mini-action-btn"
+                    class="indiv-mini-btn"
                   >
                     全選
                   </button>
                   <button
                     type="button"
                     id="qscore-filter-age-clear"
-                    class="mini-action-btn"
+                    class="indiv-mini-btn"
                   >
                     清除
                   </button>
@@ -1450,14 +1471,14 @@
                   <button
                     type="button"
                     id="qscore-filter-oral-select-all"
-                    class="mini-action-btn"
+                    class="indiv-mini-btn"
                   >
                     全選
                   </button>
                   <button
                     type="button"
                     id="qscore-filter-oral-clear"
-                    class="mini-action-btn"
+                    class="indiv-mini-btn"
                   >
                     清除
                   </button>
@@ -1480,14 +1501,14 @@
                   <button
                     type="button"
                     id="qscore-filter-fam-select-all"
-                    class="mini-action-btn"
+                    class="indiv-mini-btn"
                   >
                     全選
                   </button>
                   <button
                     type="button"
                     id="qscore-filter-fam-clear"
-                    class="mini-action-btn"
+                    class="indiv-mini-btn"
                   >
                     清除
                   </button>
@@ -1510,14 +1531,14 @@
                   <button
                     type="button"
                     id="qscore-filter-written-select-all"
-                    class="mini-action-btn"
+                    class="indiv-mini-btn"
                   >
                     全選
                   </button>
                   <button
                     type="button"
                     id="qscore-filter-written-clear"
-                    class="mini-action-btn"
+                    class="indiv-mini-btn"
                   >
                     清除
                   </button>
@@ -1534,9 +1555,12 @@
           <div class="indiv-filter-help">
             預設是「全選」。揤項目會當切換篩選條件；若某分類無揀任何變數，預設是彼ê分類全選。
           </div>
+          <div class="indiv-filter-match-count" id="qscore-filter-match-count">
+            目前符合條件受試者：0 人
+          </div>
         </div>
 
-        <h3 style="margin-top: 28px">30 題數值總覽（置中金字塔）</h3>
+        <h3 style="margin-top: 28px">30 題數值總覽（金字塔圖）</h3>
         <p>
           每題是一欄：<strong
             >頂面是 5 分（干焦會當佮）、下面為 1 分（干焦會當共）</strong
@@ -1546,14 +1570,14 @@
         <div
           class="pyramid-overview-outer"
           id="allq_scores_overview"
-          aria-label="30 題置中金字塔總覽（可橫向捲動）"
+          aria-label="30 題金字塔圖總覽（可橫向捲動）"
         ></div>
 
         <div id="qscore-detail">
           <h3 style="margin-top: 36px">單題回覆分佈（histogram）</h3>
           <p>
             對選單揀題號（1–30），抑是對頂面<strong>點揤題號</strong>mā會連到遮。圖是彼題
-          揀1–5 分ê人數分布。
+            揀1–5 分ê人數分布。
           </p>
           <div class="qscore-toolbar">
             <label for="qscore-select">選擇題目</label>
@@ -1624,7 +1648,7 @@
 
         <h3 style="margin-top: 28px">各組別數值分布</h3>
         <p>
-          先選<strong>背景變數</strong>分頁，再以<strong>圖表類型</strong>切換：<strong>箱型圖</strong>將每位受試者於該題組內十題取算術平均（每人一點）；<strong>置中金字塔</strong>則與上方「30
+          先選<strong>背景變數</strong>分頁，再以<strong>圖表類型</strong>切換：<strong>箱型圖</strong>將每位受試者於該題組內十題取算術平均（每人一點）；<strong>金字塔圖</strong>則與上方「30
           題總覽」相同幾何——將該組在該題組內<strong
             >每一則回答（每位受試者該段各有十題，故共約 10×N 筆）</strong
           >依 1–5 分加總，不先行平均；圖上僅標示組內
@@ -1676,7 +1700,7 @@
             data-factor-view="pyramid"
             onclick="switchFactorView('pyramid')"
           >
-            逐筆回答（置中金字塔）
+            逐筆回答（金字塔圖）
           </button>
         </div>
         <div
@@ -1700,9 +1724,9 @@
           N。顏色越藍代表越偏「共」（分數低），越紅代表越偏「佮」（分數高）。
         </p>
         <div class="note">
-          顏色代表平均分（藍=khah倚共，紅=khah倚佮）；格內顯示平均分及樣本數 n。<strong
-            >♟ 每個代表 10 位受試者</strong
-          >（不足 10 人計 1 個，n&lt;5 的格子數值穩定性較低）。
+          顏色代表平均分（藍=khah倚共，紅=khah倚佮）；格內顯示平均分及樣本數
+          n。<strong>♟ 每個代表 10 位受試者</strong>（不足 10 人計 1 個，n&lt;5
+          的格子數值穩定性較低）。
         </div>
 
         <!-- 第一層：選擇變數組合 -->
@@ -2106,6 +2130,11 @@
       }
 
       function refreshQScoreChartsByFilter() {
+        const countEl = document.getElementById("qscore-filter-match-count");
+        if (countEl) {
+          const n = getQScoreFilteredParticipants().length;
+          countEl.textContent = `目前符合條件受試者：${n} 人`;
+        }
         drawAllQuestionsScoreOverview();
         const sel = document.getElementById("qscore-select");
         const q = sel ? Number(sel.value) || 1 : 1;
@@ -2369,7 +2398,7 @@
         );
       }
 
-      /* 30 題：每題一欄置中金字塔（對稱水平條）；圖上由上而下為 5→1，題號 hover 顯示內容與平均 */
+      /* 30 題：每題一欄金字塔圖（對稱水平條）；圖上由上而下為 5→1，題號 hover 顯示內容與平均 */
       function drawAllQuestionsScoreOverview() {
         const outer = document.getElementById("allq_scores_overview");
         if (!outer) return;
@@ -2688,7 +2717,7 @@
         outer.className = "pyramid-overview-outer";
         outer.setAttribute(
           "aria-label",
-          `${f}：各組三段題組置中金字塔（逐題回答分布）`,
+          `${f}：各組三段題組金字塔圖（逐題回答分布）`,
         );
 
         const frame = document.createElement("div");
@@ -2702,7 +2731,7 @@
         scroll.className = "pyramid-overview-scroll";
         const wrap = document.createElement("div");
         wrap.className = "pyramid-overview-row factor-pyramid-group-wrap";
-        wrap.setAttribute("aria-label", "各背景組置中金字塔（可橫向捲動）");
+        wrap.setAttribute("aria-label", "各背景組金字塔圖（可橫向捲動）");
 
         const yOrder = ["1", "2", "3", "4", "5"];
         const miniLayoutBase = {
@@ -3835,6 +3864,12 @@
               return true;
             })
             .map(({ idx }) => idx);
+
+          const countEl = document.getElementById("indiv-filter-match-count");
+          if (countEl) {
+            const n = filteredParticipantIdxs.length;
+            countEl.textContent = `目前符合條件受試者：${n} 人`;
+          }
 
           sel.innerHTML = "";
           filteredParticipantIdxs.forEach((idx) => {
