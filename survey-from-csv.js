@@ -6,9 +6,9 @@
   const NUM_Q = 30;
 
   const ageOrder = ['18-25', '26-35', '36-45', '46-55', '56-65', '65+'];
-  const famOrder = ['從小說台語', '聽懂不說', '後天學習'];
-  const oralOrder = ['口語流利', '可溝通', '聽懂不說'];
-  const writtenOrder = ['書寫無礙', '學過少用', '未學書寫'];
+  const famOrder = ['自細漢講台語', '會聽bē講', '大漢才學'];
+  const oralOrder = ['口語扭掠', '無kài輾轉', '干焦會曉聽'];
+  const writtenOrder = ['書寫無問題', '學過無定用', '無學過書寫'];
 
   global.SURVEY_ORDERS = { ageOrder, famOrder, oralOrder, writtenOrder };
 
@@ -52,18 +52,18 @@
 
   function normalizeFam(s) {
     const m = {
-      '家裡以台語為主要語言，從小聽與說': '從小說台語',
-      '在家聽得懂台語，但不會說': '聽懂不說',
-      '家裡不太講台語，長大後才學會': '後天學習',
+      '家裡以台語為主要語言，從小聽與說': '自細漢講台語',
+      '在家聽得懂台語，但不會說': '會聽bē講',
+      '家裡不太講台語，長大後才學會': '大漢才學',
     };
     return m[String(s || '').trim()] || null;
   }
 
   function normalizeOral(s) {
     const m = {
-      '對話流利': '口語流利',
-      '可溝通，但不順暢': '可溝通',
-      '聽得懂，但不太會說': '聽懂不說',
+      '對話流利': '口語扭掠',
+      '無kài輾轉，但不順暢': '無kài輾轉',
+      '聽得懂，但不太會說': '干焦會曉聽',
     };
     return m[String(s || '').trim()] || null;
   }
@@ -71,8 +71,8 @@
   function normalizeWritten(s) {
     const t = String(s || '').trim();
     if (!t) return null;
-    if (/書寫\/?閱讀.*無礙/.test(t)) return '書寫無礙';
-    if (/有大概學過讀寫/.test(t) && /實際使用/.test(t)) return '學過少用';
+    if (/書寫\/?閱讀.*無礙/.test(t)) return '書寫無問題';
+    if (/有大概學過讀寫/.test(t) && /實際使用/.test(t)) return '學過無定用';
     if (/完全沒學過/.test(t)) return '未學書寫';
     return null;
   }
