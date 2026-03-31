@@ -351,6 +351,38 @@
         padding-top: 10px;
         border-top: 1px dashed var(--border);
       }
+      .qscore-audio-controls {
+        display: flex;
+        justify-content: space-between;
+        align-items: stretch;
+        gap: 12px;
+        margin: 10px 0 18px;
+      }
+      .qscore-audio-btn {
+        flex: 1 1 0;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        background: #fff;
+        color: var(--primary);
+        font-size: 13px;
+        font-weight: 700;
+        padding: 8px 12px;
+        cursor: pointer;
+      }
+      .qscore-audio-btn.audio-left {
+        text-align: center;
+      }
+      .qscore-audio-btn.audio-right {
+        text-align: center;
+      }
+      .qscore-audio-btn:hover {
+        background: var(--light);
+      }
+      .qscore-audio-btn:disabled {
+        cursor: not-allowed;
+        color: var(--subtext);
+        background: #f6f8fa;
+      }
 
       /* INDIVIDUAL RESPONSES (單一受試者逐題回應) */
       #individual {
@@ -703,6 +735,11 @@
         font-size: 12.5px;
         color: var(--subtext);
         white-space: pre-wrap;
+      }
+      .indiv-cell-tooltip .tip-rt {
+        font-size: 12.5px;
+        color: var(--accent);
+        margin-bottom: 6px;
       }
 
       /* 30 題置中金字塔：左側說明 + 橫向捲軸 */
@@ -1282,7 +1319,7 @@
 
         <div class="indiv-grid-wrap">
           <div class="indiv-grid-note">
-            30 題逐題回應數值（1–5）。10 欄 3 列由左到右由上到下；hover 顯示題目 ID 與題幹。
+            30 題逐題回應數值（1–5）。10 欄 3 列由左到右由上到下；hover 顯示題目 ID、題幹與反應時間。
           </div>
           <table
             id="indiv-grid-table"
@@ -1314,6 +1351,132 @@
           <code>web</code>。
         </div>
 
+        <div class="indiv-filter-panel" style="margin-top: 14px">
+          <h3 class="indiv-panel-title">篩選條件</h3>
+          <div class="indiv-filter-grid">
+            <div class="indiv-filter-control filter-age">
+              <div class="indiv-filter-head">
+                <label>年齡</label>
+                <div class="indiv-filter-mini-actions">
+                  <button
+                    type="button"
+                    id="qscore-filter-age-select-all"
+                    class="mini-action-btn"
+                  >
+                    全選
+                  </button>
+                  <button
+                    type="button"
+                    id="qscore-filter-age-clear"
+                    class="mini-action-btn"
+                  >
+                    清除
+                  </button>
+                </div>
+              </div>
+              <div
+                id="qscore-filter-age-options"
+                class="indiv-toggle-group"
+                role="group"
+                aria-label="依年齡篩選各題數值分布"
+              ></div>
+            </div>
+
+            <div class="indiv-filter-divider"></div>
+
+            <div class="indiv-filter-control filter-oral">
+              <div class="indiv-filter-head">
+                <label>口語程度</label>
+                <div class="indiv-filter-mini-actions">
+                  <button
+                    type="button"
+                    id="qscore-filter-oral-select-all"
+                    class="mini-action-btn"
+                  >
+                    全選
+                  </button>
+                  <button
+                    type="button"
+                    id="qscore-filter-oral-clear"
+                    class="mini-action-btn"
+                  >
+                    清除
+                  </button>
+                </div>
+              </div>
+              <div
+                id="qscore-filter-oral-options"
+                class="indiv-toggle-group"
+                role="group"
+                aria-label="依口語程度篩選各題數值分布"
+              ></div>
+            </div>
+
+            <div class="indiv-filter-divider"></div>
+
+            <div class="indiv-filter-control filter-fam">
+              <div class="indiv-filter-head">
+                <label>家庭台語背景</label>
+                <div class="indiv-filter-mini-actions">
+                  <button
+                    type="button"
+                    id="qscore-filter-fam-select-all"
+                    class="mini-action-btn"
+                  >
+                    全選
+                  </button>
+                  <button
+                    type="button"
+                    id="qscore-filter-fam-clear"
+                    class="mini-action-btn"
+                  >
+                    清除
+                  </button>
+                </div>
+              </div>
+              <div
+                id="qscore-filter-fam-options"
+                class="indiv-toggle-group"
+                role="group"
+                aria-label="依家庭台語背景篩選各題數值分布"
+              ></div>
+            </div>
+
+            <div class="indiv-filter-divider"></div>
+
+            <div class="indiv-filter-control filter-written">
+              <div class="indiv-filter-head">
+                <label>書面程度</label>
+                <div class="indiv-filter-mini-actions">
+                  <button
+                    type="button"
+                    id="qscore-filter-written-select-all"
+                    class="mini-action-btn"
+                  >
+                    全選
+                  </button>
+                  <button
+                    type="button"
+                    id="qscore-filter-written-clear"
+                    class="mini-action-btn"
+                  >
+                    清除
+                  </button>
+                </div>
+              </div>
+              <div
+                id="qscore-filter-written-options"
+                class="indiv-toggle-group"
+                role="group"
+                aria-label="依書面程度篩選各題數值分布"
+              ></div>
+            </div>
+          </div>
+          <div class="indiv-filter-help">
+            預設為「全部」。點選項目可切換；若某維度未勾選任何項目，代表該維度不限制。
+          </div>
+        </div>
+
         <h3 style="margin-top: 28px">30 題數值總覽（置中金字塔）</h3>
         <p>
           每題為一欄：<strong
@@ -1335,11 +1498,29 @@
           </p>
           <div class="qscore-toolbar">
             <label for="qscore-select">選擇題目</label>
-            <select
-              id="qscore-select"
-              class="qscore-select"
-              aria-label="選擇要檢視的題號"
-            ></select>
+            <div class="indiv-participant-row">
+              <button
+                type="button"
+                id="qscore-prev-btn"
+                class="indiv-nav-btn"
+                aria-label="上一題"
+              >
+                &lt;
+              </button>
+              <select
+                id="qscore-select"
+                class="qscore-select"
+                aria-label="選擇要檢視的題號"
+              ></select>
+              <button
+                type="button"
+                id="qscore-next-btn"
+                class="indiv-nav-btn"
+                aria-label="下一題"
+              >
+                &gt;
+              </button>
+            </div>
           </div>
           <div
             id="qscore-stem"
@@ -1352,6 +1533,22 @@
             id="qscore_hist"
             style="min-height: 380px"
           ></div>
+          <div class="qscore-audio-controls" aria-label="題目音檔播放控制">
+            <button
+              type="button"
+              id="qscore-audio-1"
+              class="qscore-audio-btn audio-left"
+            >
+              播放音檔 1（共）
+            </button>
+            <button
+              type="button"
+              id="qscore-audio-2"
+              class="qscore-audio-btn audio-right"
+            >
+              播放音檔 2（佮）
+            </button>
+          </div>
         </div>
       </section>
 
@@ -1693,6 +1890,132 @@
         return `題 ${q}（${tag}，題幹未載入）`;
       }
 
+      // 各題數值分布篩選：空集合代表該維度不限制（等同全部）
+      const qScoreFilterSets = {
+        age: new Set(),
+        oral: new Set(),
+        fam: new Set(),
+        written: new Set(),
+      };
+
+      function getQScoreFilteredParticipants() {
+        if (!D || !Array.isArray(D.participants)) return [];
+        return D.participants.filter((p) => {
+          if (qScoreFilterSets.age.size && !qScoreFilterSets.age.has(p.age))
+            return false;
+          if (qScoreFilterSets.oral.size && !qScoreFilterSets.oral.has(p.oral))
+            return false;
+          if (qScoreFilterSets.fam.size && !qScoreFilterSets.fam.has(p.fam))
+            return false;
+          if (
+            qScoreFilterSets.written.size &&
+            !qScoreFilterSets.written.has(p.written)
+          )
+            return false;
+          return true;
+        });
+      }
+
+      function getQScoreFilteredScoresByQuestion(q) {
+        const participants = getQScoreFilteredParticipants();
+        return participants
+          .map((p) => p.scores[q - 1])
+          .filter((v) => Number.isFinite(v) && v >= 1 && v <= 5);
+      }
+
+      function refreshQScoreChartsByFilter() {
+        drawAllQuestionsScoreOverview();
+        const sel = document.getElementById("qscore-select");
+        const q = sel ? Number(sel.value) || 1 : 1;
+        drawQuestionScoreHistogram(q);
+        updatePyramidOverviewSelection(q);
+      }
+
+      function initQScoreFilters() {
+        if (!D || !Array.isArray(D.participants)) return;
+        const filterCfg = {
+          age: {
+            key: "age",
+            containerId: "qscore-filter-age-options",
+            values: ageOrder,
+            selectAllBtnId: "qscore-filter-age-select-all",
+            clearBtnId: "qscore-filter-age-clear",
+          },
+          oral: {
+            key: "oral",
+            containerId: "qscore-filter-oral-options",
+            values: oralOrder,
+            selectAllBtnId: "qscore-filter-oral-select-all",
+            clearBtnId: "qscore-filter-oral-clear",
+          },
+          fam: {
+            key: "fam",
+            containerId: "qscore-filter-fam-options",
+            values: famOrder,
+            selectAllBtnId: "qscore-filter-fam-select-all",
+            clearBtnId: "qscore-filter-fam-clear",
+          },
+          written: {
+            key: "written",
+            containerId: "qscore-filter-written-options",
+            values: writtenOrder,
+            selectAllBtnId: "qscore-filter-written-select-all",
+            clearBtnId: "qscore-filter-written-clear",
+          },
+        };
+
+        function syncToggleGroup(containerEl, key) {
+          if (!containerEl) return;
+          containerEl.querySelectorAll(".indiv-toggle-btn").forEach((btn) => {
+            const v = btn.dataset.value;
+            btn.classList.toggle("active", qScoreFilterSets[key].has(v));
+          });
+        }
+
+        function renderToggleGroup(containerEl, key, values) {
+          if (!containerEl) return;
+          containerEl.innerHTML = "";
+          values.forEach((v) => {
+            const sv = String(v);
+            const btn = document.createElement("button");
+            btn.type = "button";
+            btn.className = "indiv-toggle-btn";
+            btn.dataset.value = sv;
+            btn.textContent = sv;
+            btn.addEventListener("click", () => {
+              if (qScoreFilterSets[key].has(sv)) qScoreFilterSets[key].delete(sv);
+              else qScoreFilterSets[key].add(sv);
+              btn.classList.toggle("active", qScoreFilterSets[key].has(sv));
+              refreshQScoreChartsByFilter();
+            });
+            containerEl.appendChild(btn);
+          });
+          syncToggleGroup(containerEl, key);
+        }
+
+        Object.keys(filterCfg).forEach((k) => {
+          const cfg = filterCfg[k];
+          const containerEl = document.getElementById(cfg.containerId);
+          renderToggleGroup(containerEl, cfg.key, cfg.values);
+
+          const selectAllBtn = document.getElementById(cfg.selectAllBtnId);
+          const clearBtn = document.getElementById(cfg.clearBtnId);
+          if (selectAllBtn)
+            selectAllBtn.addEventListener("click", () => {
+              qScoreFilterSets[cfg.key].clear();
+              cfg.values.forEach((v) => qScoreFilterSets[cfg.key].add(String(v)));
+              syncToggleGroup(containerEl, cfg.key);
+              refreshQScoreChartsByFilter();
+            });
+          if (clearBtn)
+            clearBtn.addEventListener("click", () => {
+              qScoreFilterSets[cfg.key].clear();
+              syncToggleGroup(containerEl, cfg.key);
+              refreshQScoreChartsByFilter();
+            });
+        });
+      }
+
       function fillQScoreSelect() {
         const sel = document.getElementById("qscore-select");
         sel.innerHTML = "";
@@ -1735,6 +2058,18 @@
         updatePyramidOverviewSelection(q);
       }
 
+      function changeQScoreByStep(step) {
+        const sel = document.getElementById("qscore-select");
+        if (!sel) return;
+        const cur = Number(sel.value) || 1;
+        let next = cur + step;
+        if (next < 1) next = 30;
+        if (next > 30) next = 1;
+        sel.value = String(next);
+        drawQuestionScoreHistogram(next);
+        updatePyramidOverviewSelection(next);
+      }
+
       function updateQScoreStem(q) {
         const el = document.getElementById("qscore-stem");
         const bank = D.question_bank && D.question_bank[q - 1];
@@ -1747,9 +2082,57 @@
         el.innerHTML = `<strong>第 ${q} 題</strong>　<span style="color:var(--subtext);font-weight:600;">${qScoreDesignLine(q)}</span><br>${stem}${inter ? `<div class="qscore-meta">${inter}</div>` : ""}`;
       }
 
+      let _qscoreAudioEl = null;
+      function ensureQScoreAudioEl() {
+        if (!_qscoreAudioEl) _qscoreAudioEl = new Audio();
+        return _qscoreAudioEl;
+      }
+
+      function stopQScoreAudio() {
+        if (_qscoreAudioEl) {
+          _qscoreAudioEl.pause();
+          _qscoreAudioEl.currentTime = 0;
+        }
+      }
+
+      function updateQScoreAudioControls(q) {
+        const btn1 = document.getElementById("qscore-audio-1");
+        const btn2 = document.getElementById("qscore-audio-2");
+        if (!btn1 || !btn2) return;
+        const bank = D.question_bank && D.question_bank[q - 1];
+        const options =
+          bank && Array.isArray(bank.options)
+            ? bank.options.filter((u) => String(u || "").trim())
+            : [];
+        const urls = [options[0] || "", options[1] || ""];
+        [btn1, btn2].forEach((btn, i) => {
+          const src = urls[i];
+          btn.dataset.audioSrc = src;
+          btn.disabled = !src;
+          const tendency = i === 0 ? "共" : "佮";
+          btn.textContent = src
+            ? `播放音檔 ${i + 1}（${tendency}）`
+            : `音檔 ${i + 1}（${tendency}，無）`;
+        });
+      }
+
+      function onQScoreAudioButtonClick(ev) {
+        const btn = ev.currentTarget;
+        const src = btn && btn.dataset ? String(btn.dataset.audioSrc || "") : "";
+        if (!src) return;
+        const audio = ensureQScoreAudioEl();
+        if (audio.src !== src) audio.src = src;
+        audio.currentTime = 0;
+        audio.play().catch((err) => {
+          console.warn("播放音檔失敗", err);
+        });
+      }
+
       function drawQuestionScoreHistogram(q) {
         updateQScoreStem(q);
-        const arr = D.per_question_scores[String(q)] || [];
+        stopQScoreAudio();
+        updateQScoreAudioControls(q);
+        const arr = getQScoreFilteredScoresByQuestion(q);
         const n = arr.length;
         const mean = n ? arr.reduce((a, b) => a + b, 0) / n : NaN;
 
@@ -1806,7 +2189,7 @@
         if (!outer) return;
 
         const countAt = (q, s) => {
-          const arr = D.per_question_scores[String(q)] || [];
+          const arr = getQScoreFilteredScoresByQuestion(q);
           return arr.filter((v) => v === s).length;
         };
 
@@ -1884,7 +2267,7 @@
           const counts = [c1, c2, c3, c4, c5];
           const bases = counts.map((c) => -c / 2);
 
-          const scores = D.per_question_scores[String(q)] || [];
+          const scores = getQScoreFilteredScoresByQuestion(q);
           const mean = scores.length
             ? scores.reduce((a, b) => a + b, 0) / scores.length
             : NaN;
@@ -2723,9 +3106,17 @@
 
         const bank = D.question_bank[qid - 1];
         const stem = bank && bank.content ? String(bank.content).trim() : "";
+        const { participant } = getSelectedParticipant() || {};
+        const rtMs =
+          participant &&
+          Array.isArray(participant.rts) &&
+          Number.isFinite(participant.rts[qid - 1])
+            ? participant.rts[qid - 1]
+            : NaN;
+        const rtLabel = Number.isFinite(rtMs) ? `${rtMs.toFixed(0)} ms` : "—";
 
         const tip = ensureIndivCellTooltip();
-        tip.innerHTML = `<div class="tip-id">題目ID：${qid}</div><div class="tip-stem">題幹：${escapeHtml(
+        tip.innerHTML = `<div class="tip-id">題目ID：${qid}</div><div class="tip-rt">反應時間：${rtLabel}</div><div class="tip-stem">題幹：${escapeHtml(
           stem || "（題幹未載入）",
         )}</div>`;
         tip.style.display = "block";
@@ -3071,6 +3462,19 @@
             D.per_question_scores,
           ).length;
           renderDashboard();
+          const audioBtn1 = document.getElementById("qscore-audio-1");
+          const audioBtn2 = document.getElementById("qscore-audio-2");
+          if (audioBtn1)
+            audioBtn1.addEventListener("click", onQScoreAudioButtonClick);
+          if (audioBtn2)
+            audioBtn2.addEventListener("click", onQScoreAudioButtonClick);
+          const qPrevBtn = document.getElementById("qscore-prev-btn");
+          const qNextBtn = document.getElementById("qscore-next-btn");
+          if (qPrevBtn)
+            qPrevBtn.addEventListener("click", () => changeQScoreByStep(-1));
+          if (qNextBtn)
+            qNextBtn.addEventListener("click", () => changeQScoreByStep(1));
+          initQScoreFilters();
           initIndividualResponses();
         } catch (e) {
           note.style.display = "block";

@@ -13,14 +13,30 @@
   global.SURVEY_ORDERS = { ageOrder, famOrder, oralOrder, writtenOrder };
 
   /** 題目資料.csv：id, content, 互動性分組 … → 用於儀表板顯示題幹 */
+  function parseAudioOptions(raw) {
+    if (raw === undefined || raw === null) return [];
+    const txt = String(raw).trim();
+    if (!txt) return [];
+    try {
+      const parsed = JSON.parse(txt);
+      if (!Array.isArray(parsed)) return [];
+      return parsed
+        .map((v) => String(v || '').trim())
+        .filter((v) => !!v);
+    } catch (_) {
+      return [];
+    }
+  }
+
   function parseQuestionBankRows(rows) {
-    const out = Array.from({ length: NUM_Q }, () => ({ content: '', interactivity: '' }));
+    const out = Array.from({ length: NUM_Q }, () => ({ content: '', interactivity: '', options: [] }));
     rows.forEach((row) => {
       const id = Number(row.id);
       if (!Number.isFinite(id) || id < 1 || id > NUM_Q) return;
       out[id - 1] = {
         content: String(row.content || '').trim(),
         interactivity: String(row['互動性分組'] || '').trim(),
+        options: parseAudioOptions(row.options),
       };
     });
     return out;
