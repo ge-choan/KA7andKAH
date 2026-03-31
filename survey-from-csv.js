@@ -1,18 +1,18 @@
 /* global Papa — loaded from CDN in index.html */
-'use strict';
+"use strict";
 
 (function (global) {
   const RT_CAP_MS = 30000;
   const NUM_Q = 30;
 
-  const ageOrder = ['18-25', '26-35', '36-45', '46-55', '56-65', '65+'];
-  const famOrder = ['自細漢講台語', '會聽bē講', '大漢才學'];
-  const oralOrder = ['口語扭掠', '無kài輾轉', '干焦會曉聽'];
-  const writtenOrder = ['書寫無問題', '學過無定用', '無學過書寫'];
+  const ageOrder = ["18-25", "26-35", "36-45", "46-55", "56-65", "65+"];
+  const famOrder = ["自細漢講台語", "會聽bē講", "大漢才學"];
+  const oralOrder = ["口語扭掠", "無kài輾轉", "干焦會曉聽"];
+  const writtenOrder = ["書寫無問題", "學過無定用", "無學過書寫"];
 
   global.SURVEY_ORDERS = { ageOrder, famOrder, oralOrder, writtenOrder };
 
-  /** 題目資料.csv：id, content, 互動性分組 … → 用於儀表板顯示題幹 */
+  /** 題目資料.csv：id, content, 互動性分組 … → 用於儀表板顯示內容 */
   function parseAudioOptions(raw) {
     if (raw === undefined || raw === null) return [];
     const txt = String(raw).trim();
@@ -20,22 +20,24 @@
     try {
       const parsed = JSON.parse(txt);
       if (!Array.isArray(parsed)) return [];
-      return parsed
-        .map((v) => String(v || '').trim())
-        .filter((v) => !!v);
+      return parsed.map((v) => String(v || "").trim()).filter((v) => !!v);
     } catch (_) {
       return [];
     }
   }
 
   function parseQuestionBankRows(rows) {
-    const out = Array.from({ length: NUM_Q }, () => ({ content: '', interactivity: '', options: [] }));
+    const out = Array.from({ length: NUM_Q }, () => ({
+      content: "",
+      interactivity: "",
+      options: [],
+    }));
     rows.forEach((row) => {
       const id = Number(row.id);
       if (!Number.isFinite(id) || id < 1 || id > NUM_Q) return;
       out[id - 1] = {
-        content: String(row.content || '').trim(),
-        interactivity: String(row['互動性分組'] || '').trim(),
+        content: String(row.content || "").trim(),
+        interactivity: String(row["互動性分組"] || "").trim(),
         options: parseAudioOptions(row.options),
       };
     });
@@ -45,35 +47,38 @@
 
   function normalizeAge(s) {
     if (!s) return null;
-    let t = String(s).trim().replace(/\u2013/g, '-').replace(/\u2014/g, '-');
-    if (t === '65歲以上') return '65+';
+    let t = String(s)
+      .trim()
+      .replace(/\u2013/g, "-")
+      .replace(/\u2014/g, "-");
+    if (t === "65歲以上") return "65+";
     return /^(\d+)-(\d+)$/.test(t) ? t : null;
   }
 
   function normalizeFam(s) {
     const m = {
-      '家裡以台語為主要語言，從小聽與說': '自細漢講台語',
-      '在家聽得懂台語，但不會說': '會聽bē講',
-      '家裡不太講台語，長大後才學會': '大漢才學',
+      "家裡以台語為主要語言，從小聽與說": "自細漢講台語",
+      "在家聽得懂台語，但不會說": "會聽bē講",
+      "家裡不太講台語，長大後才學會": "大漢才學",
     };
-    return m[String(s || '').trim()] || null;
+    return m[String(s || "").trim()] || null;
   }
 
   function normalizeOral(s) {
     const m = {
-      '對話流利': '口語扭掠',
-      '無kài輾轉，但不順暢': '無kài輾轉',
-      '聽得懂，但不太會說': '干焦會曉聽',
+      對話流利: "口語扭掠",
+      "無kài輾轉，但不順暢": "無kài輾轉",
+      "聽得懂，但不太會說": "干焦會曉聽",
     };
-    return m[String(s || '').trim()] || null;
+    return m[String(s || "").trim()] || null;
   }
 
   function normalizeWritten(s) {
-    const t = String(s || '').trim();
+    const t = String(s || "").trim();
     if (!t) return null;
-    if (/書寫\/?閱讀.*無礙/.test(t)) return '書寫無問題';
-    if (/有大概學過讀寫/.test(t) && /實際使用/.test(t)) return '學過無定用';
-    if (/完全沒學過/.test(t)) return '無學過書寫';
+    if (/書寫\/?閱讀.*無礙/.test(t)) return "書寫無問題";
+    if (/有大概學過讀寫/.test(t) && /實際使用/.test(t)) return "學過無定用";
+    if (/完全沒學過/.test(t)) return "無學過書寫";
     return null;
   }
 
@@ -83,20 +88,23 @@
   }
 
   function median(arr) {
-    const a = arr.filter((x) => Number.isFinite(x)).slice().sort((x, y) => x - y);
+    const a = arr
+      .filter((x) => Number.isFinite(x))
+      .slice()
+      .sort((x, y) => x - y);
     if (!a.length) return NaN;
     const m = Math.floor(a.length / 2);
     return a.length % 2 ? a[m] : (a[m - 1] + a[m]) / 2;
   }
 
   function parseParticipant(row) {
-    const age = normalizeAge(row['年齡']);
-    const fam = normalizeFam(row['家庭台語背景']);
-    const oral = normalizeOral(row['臺語程度（口語）']);
-    const written = normalizeWritten(row['臺語程度（書面）']);
+    const age = normalizeAge(row["年齡"]);
+    const fam = normalizeFam(row["家庭台語背景"]);
+    const oral = normalizeOral(row["臺語程度（口語）"]);
+    const written = normalizeWritten(row["臺語程度（書面）"]);
     if (!age || !fam || !oral || !written) return null;
-    const name = String(row['姓名'] || '').trim();
-    const openText = String(row['聲音判斷依據（開放題）'] || '').trim();
+    const name = String(row["姓名"] || "").trim();
+    const openText = String(row["聲音判斷依據（開放題）"] || "").trim();
     const scores = [];
     const rts = [];
     // qidByOrder[order-1] = qid; 用於「依照回答順序排列」
@@ -106,12 +114,16 @@
     for (let q = 1; q <= NUM_Q; q++) {
       const sk = row[`${q}_回答結果`];
       const rtKey = `${q}_回答時間毫秒`;
-      if (sk === undefined || sk === null || String(sk).trim() === '') return null;
+      if (sk === undefined || sk === null || String(sk).trim() === "")
+        return null;
       const sc = Number(sk);
       if (!Number.isFinite(sc) || sc < 1 || sc > 5) return null;
       const orderKey = `${q}_呈現順序`;
       const ordRaw = row[orderKey];
-      const ord = ordRaw === '' || ordRaw === undefined || ordRaw === null ? NaN : Number(ordRaw);
+      const ord =
+        ordRaw === "" || ordRaw === undefined || ordRaw === null
+          ? NaN
+          : Number(ordRaw);
       if (!Number.isFinite(ord) || ord < 1 || ord > NUM_Q) {
         okOrder = false;
       } else if (qidByOrder[ord - 1] != null) {
@@ -120,7 +132,10 @@
         qidByOrder[ord - 1] = q;
       }
       const rtRaw = row[rtKey];
-      const rt = rtRaw === '' || rtRaw === undefined || rtRaw === null ? NaN : Number(rtRaw);
+      const rt =
+        rtRaw === "" || rtRaw === undefined || rtRaw === null
+          ? NaN
+          : Number(rtRaw);
       if (!Number.isFinite(rt)) return null;
       scores.push(sc);
       rts.push(Math.min(RT_CAP_MS, rt));
@@ -145,7 +160,9 @@
 
   function countInOrder(participants, getter, order) {
     const o = {};
-    order.forEach((k) => { o[k] = 0; });
+    order.forEach((k) => {
+      o[k] = 0;
+    });
     participants.forEach((p) => {
       const v = getter(p);
       if (v in o) o[v]++;
@@ -166,10 +183,10 @@
 
   function buildGroupScores(participants) {
     const dims = [
-      ['年齡', (p) => p.age, ageOrder],
-      ['口語程度', (p) => p.oral, oralOrder],
-      ['家庭台語背景', (p) => p.fam, famOrder],
-      ['書面程度', (p) => p.written, writtenOrder],
+      ["年齡", (p) => p.age, ageOrder],
+      ["口語程度", (p) => p.oral, oralOrder],
+      ["家庭台語背景", (p) => p.fam, famOrder],
+      ["書面程度", (p) => p.written, writtenOrder],
     ];
     const out = {};
     dims.forEach(([name, getter, order]) => {
@@ -203,10 +220,10 @@
 
   function buildGroupScoreCounts(participants) {
     const dims = [
-      ['年齡', (p) => p.age, ageOrder],
-      ['口語程度', (p) => p.oral, oralOrder],
-      ['家庭台語背景', (p) => p.fam, famOrder],
-      ['書面程度', (p) => p.written, writtenOrder],
+      ["年齡", (p) => p.age, ageOrder],
+      ["口語程度", (p) => p.oral, oralOrder],
+      ["家庭台語背景", (p) => p.fam, famOrder],
+      ["書面程度", (p) => p.written, writtenOrder],
     ];
     const out = {};
     dims.forEach(([name, getter, order]) => {
@@ -273,7 +290,8 @@
     const a5 = 1.061405429;
     const p = 0.3275911;
     const t = 1 / (1 + p * x);
-    const y = 1 - (((((a5 * t + a4) * t) + a3) * t + a2) * t + a1) * t * Math.exp(-x * x);
+    const y =
+      1 - ((((a5 * t + a4) * t + a3) * t + a2) * t + a1) * t * Math.exp(-x * x);
     return sign * y;
   }
 
@@ -289,10 +307,10 @@
   }
 
   function sigStars(p) {
-    if (p < 0.001) return '***';
-    if (p < 0.01) return '**';
-    if (p < 0.05) return '*';
-    return 'n.s.';
+    if (p < 0.001) return "***";
+    if (p < 0.01) return "**";
+    if (p < 0.05) return "*";
+    return "n.s.";
   }
 
   function buildSpearman(participants) {
@@ -306,8 +324,12 @@
     const y1 = (p) => mean(p.scores.slice(0, 10));
     const y2 = (p) => mean(p.scores.slice(10, 20));
     const y3 = (p) => mean(p.scores.slice(20, 30));
-    const outcomes = [['題1-10', y1], ['題11-20', y2], ['題21-30', y3]];
-    const demKeys = ['家庭台語背景', '口語程度', '書面程度', '年齡'];
+    const outcomes = [
+      ["題1-10", y1],
+      ["題11-20", y2],
+      ["題21-30", y3],
+    ];
+    const demKeys = ["家庭台語背景", "口語程度", "書面程度", "年齡"];
     const out = {};
     demKeys.forEach((d) => {
       out[d] = {};
@@ -316,7 +338,11 @@
         const yv = participants.map(fn);
         const rho = spearmanRho(xv, yv);
         const p = spearmanPApprox(rho, n);
-        out[d][label] = { rho: Math.round(rho * 1000) / 1000, p, sig: sigStars(p) };
+        out[d][label] = {
+          rho: Math.round(rho * 1000) / 1000,
+          p,
+          sig: sigStars(p),
+        };
       });
     });
     return out;
@@ -326,7 +352,9 @@
     const data = {};
     rowOrder.forEach((r) => {
       colOrder.forEach((c) => {
-        const cell = participants.filter((p) => getRow(p) === r && getCol(p) === c);
+        const cell = participants.filter(
+          (p) => getRow(p) === r && getCol(p) === c,
+        );
         const n = cell.length;
         const key = `${r}×${c}`;
         if (n === 0) {
@@ -359,10 +387,24 @@
 
   function buildHardQuestions(participants) {
     return {
-      年齡: Object.fromEntries(ageOrder.map((g) => [g, top3SlowRt(participants, (p) => p.age === g)])),
-      口語程度: Object.fromEntries(oralOrder.map((g) => [g, top3SlowRt(participants, (p) => p.oral === g)])),
-      家庭台語背景: Object.fromEntries(famOrder.map((g) => [g, top3SlowRt(participants, (p) => p.fam === g)])),
-      書面程度: Object.fromEntries(writtenOrder.map((g) => [g, top3SlowRt(participants, (p) => p.written === g)])),
+      年齡: Object.fromEntries(
+        ageOrder.map((g) => [g, top3SlowRt(participants, (p) => p.age === g)]),
+      ),
+      口語程度: Object.fromEntries(
+        oralOrder.map((g) => [
+          g,
+          top3SlowRt(participants, (p) => p.oral === g),
+        ]),
+      ),
+      家庭台語背景: Object.fromEntries(
+        famOrder.map((g) => [g, top3SlowRt(participants, (p) => p.fam === g)]),
+      ),
+      書面程度: Object.fromEntries(
+        writtenOrder.map((g) => [
+          g,
+          top3SlowRt(participants, (p) => p.written === g),
+        ]),
+      ),
     };
   }
 
@@ -378,10 +420,10 @@
 
   function buildRtHeatmap(participants) {
     const blocks = [
-      { order: ageOrder, key: 'age' },
-      { order: oralOrder, key: 'oral' },
-      { order: famOrder, key: 'fam' },
-      { order: writtenOrder, key: 'written' },
+      { order: ageOrder, key: "age" },
+      { order: oralOrder, key: "oral" },
+      { order: famOrder, key: "fam" },
+      { order: writtenOrder, key: "written" },
     ];
     const labels = [];
     const raw_matrix = [];
@@ -400,10 +442,18 @@
     });
     const z_matrix = raw_matrix.map(zscoreRow);
     const group_info = [
-      { name: '年齡', start: 0, count: ageOrder.length },
-      { name: '口語程度', start: ageOrder.length, count: oralOrder.length },
-      { name: '家庭台語背景', start: ageOrder.length + oralOrder.length, count: famOrder.length },
-      { name: '書面程度', start: ageOrder.length + oralOrder.length + famOrder.length, count: writtenOrder.length },
+      { name: "年齡", start: 0, count: ageOrder.length },
+      { name: "口語程度", start: ageOrder.length, count: oralOrder.length },
+      {
+        name: "家庭台語背景",
+        start: ageOrder.length + oralOrder.length,
+        count: famOrder.length,
+      },
+      {
+        name: "書面程度",
+        start: ageOrder.length + oralOrder.length + famOrder.length,
+        count: writtenOrder.length,
+      },
     ];
     return { labels, group_info, z_matrix, raw_matrix };
   }
@@ -419,7 +469,7 @@
         participants.push(p);
       }
     });
-    if (!participants.length) throw new Error('沒有任何完整有效問卷列');
+    if (!participants.length) throw new Error("沒有任何完整有效問卷列");
 
     const demographics = {
       年齡: countInOrder(participants, (p) => p.age, ageOrder),
@@ -432,7 +482,9 @@
     const per_question_rt = {};
     for (let q = 1; q <= NUM_Q; q++) {
       per_question_scores[String(q)] = participants.map((p) => p.scores[q - 1]);
-      per_question_rt[String(q)] = median(participants.map((p) => p.rts[q - 1]));
+      per_question_rt[String(q)] = median(
+        participants.map((p) => p.rts[q - 1]),
+      );
     }
 
     return {
@@ -443,15 +495,45 @@
       group_scores: buildGroupScores(participants),
       group_score_counts: buildGroupScoreCounts(participants),
       spearman: buildSpearman(participants),
-      crosstab_fam_oral: crosstabMeans(participants, (p) => p.fam, (p) => p.oral, famOrder, oralOrder),
-      crosstab_fam_written: crosstabMeans(participants, (p) => p.fam, (p) => p.written, famOrder, writtenOrder),
-      crosstab_age_oral: crosstabMeans(participants, (p) => p.age, (p) => p.oral, ageOrder, oralOrder),
-      crosstab_age_written: crosstabMeans(participants, (p) => p.age, (p) => p.written, ageOrder, writtenOrder),
-      crosstab_age_fam: crosstabMeans(participants, (p) => p.age, (p) => p.fam, ageOrder, famOrder),
+      crosstab_fam_oral: crosstabMeans(
+        participants,
+        (p) => p.fam,
+        (p) => p.oral,
+        famOrder,
+        oralOrder,
+      ),
+      crosstab_fam_written: crosstabMeans(
+        participants,
+        (p) => p.fam,
+        (p) => p.written,
+        famOrder,
+        writtenOrder,
+      ),
+      crosstab_age_oral: crosstabMeans(
+        participants,
+        (p) => p.age,
+        (p) => p.oral,
+        ageOrder,
+        oralOrder,
+      ),
+      crosstab_age_written: crosstabMeans(
+        participants,
+        (p) => p.age,
+        (p) => p.written,
+        ageOrder,
+        writtenOrder,
+      ),
+      crosstab_age_fam: crosstabMeans(
+        participants,
+        (p) => p.age,
+        (p) => p.fam,
+        ageOrder,
+        famOrder,
+      ),
       group_hard_questions: buildHardQuestions(participants),
       rt_heatmap: buildRtHeatmap(participants),
     };
   }
 
   global.buildSurveyD = buildSurveyD;
-}(typeof window !== 'undefined' ? window : globalThis));
+})(typeof window !== "undefined" ? window : globalThis);
