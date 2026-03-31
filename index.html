@@ -1080,6 +1080,7 @@
       <a href="#factors">背景變數</a>
       <a href="#crosstab">交叉分析</a>
       <a href="#rt">回答時間</a>
+      <a href="#order_effect">作答順序的影響</a>
     </nav>
 
     <div class="page-wrap">
@@ -1118,7 +1119,6 @@
           class="qscore-toolbar"
           style="margin-top: 10px; margin-bottom: 10px"
         >
-          <label>題目聲音與內容預覽（每次顯示 10 題）</label>
           <div class="indiv-participant-row">
             <button
               type="button"
@@ -1801,6 +1801,29 @@
           id="rt_heat"
           style="min-height: 600px"
         ></div>
+      </section>
+
+      <!-- ===== SECTION 7: ANSWER ORDER EFFECT ===== -->
+      <section id="order_effect">
+        <h2><span class="sec-num">7</span>作答順序的影響</h2>
+        <p>
+          問卷題目順序為隨機，故此圖先用「每題整體平均」做校正，再比較各
+          「作答呈現順序位置」（1–30）的平均偏離量（回答分數 − 該題平均）。
+          藍色表示低於題目基準（較偏「共」），紅色表示高於題目基準（較偏
+          「佮」）。
+        </p>
+        <div
+          class="chart-wrap-tall"
+          id="order_effect_diff"
+          style="min-height: 420px"
+        ></div>
+        <h3 style="margin-top: 24px">逐題檢定（回答順序位置 × 該題分數）</h3>
+        <p>
+          每題使用 Spearman
+          相關（雙尾）檢定：<strong>H0</strong>：回答順序位置與該題分數無單調關係。表中同時提供
+          Benjamini-Hochberg FDR 校正後 p 值（q），以控制 30 題多重比較。
+        </p>
+        <div id="order_effect_table"></div>
       </section>
     </div>
     <!-- /page-wrap -->
@@ -3209,6 +3232,334 @@
         );
       }
 
+      /* ─────────── SECTION 7: Answer order effect ─────────── */
+      function drawOrderEffect() {
+        if (!D || !Array.isArray(D.participants) || !D.participants.length)
+          return;
+
+        const qs = Array.from({ length: 30 }, (_, i) => i + 1);
+
+        // 題目基準：每一題的整體平均分（控制題目本身偏向差異）
+        const qMeans = Array.from({ length: 30 }, (_, i) => {
+          const qid = i + 1;
+          const vals = [];
+          D.participants.forEach((p) => {
+            if (!p || !Array.isArray(p.scores)) return;
+            const s = p.scores[qid - 1];
+            if (Number.isFinite(s)) vals.push(s);
+          });
+          return vals.length
+            ? vals.reduce((a, b) => a + b, 0) / vals.length
+            : NaN;
+        });
+
+        // 每個呈現順序位置（1..30）計算平均偏離量：score - question_mean
+        const diffs = qs.map((pos) => {
+          const vals = [];
+          D.participants.forEach((p) => {
+            if (!p || !Array.isArray(p.qidByOrder) || !Array.isArray(p.scores))
+              return;
+            const qid = p.qidByOrder[pos - 1];
+            if (!Number.isFinite(qid) || qid < 1 || qid > 30) return;
+            const s = p.scores[qid - 1];
+            const qb = qMeans[qid - 1];
+            if (!Number.isFinite(s) || !Number.isFinite(qb)) return;
+            vals.push(s - qb);
+          });
+          return vals.length
+            ? vals.reduce((a, b) => a + b, 0) / vals.length
+            : NaN;
+        });
+
+        const maxAbs = Math.max(
+          0.0001,
+          ...diffs.map((d) => Math.abs(d)).filter((v) => Number.isFinite(v)),
+        );
+        const yRange = [-maxAbs * 1.15, maxAbs * 1.15];
+
+        const colors = diffs.map((d) =>
+          Number.isFinite(d) && d >= 0 ? "#C0392B" : "#2E86C1",
+        );
+
+        Plotly.newPlot(
+          "order_effect_diff",
+          [
+            {
+              type: "bar",
+              x: qs,
+              y: diffs,
+              marker: {
+                color: colors,
+                opacity: 0.86,
+                line: { width: 0 },
+              },
+              hovertemplate:
+                "順序位置 %{x}<br>平均偏離量：%{y:.2f}<br>(回答分數 - 該題平均)<extra></extra>",
+            },
+          ],
+          {
+            ...pLayout,
+            title: {
+              text: "平均偏離量（位置回答 - 題目平均）",
+              font: { size: 13 },
+              x: 0,
+            },
+            xaxis: {
+              title: "作答順序位置（1–30）",
+              tickmode: "linear",
+              dtick: 1,
+              gridcolor: "#E5E8EC",
+            },
+            yaxis: {
+              title: "偏離量（分）",
+              range: yRange,
+              zeroline: false,
+              gridcolor: "#E5E8EC",
+            },
+            shapes: [
+              // Baseline：0 差異
+              {
+                type: "line",
+                x0: 0,
+                x1: 1,
+                xref: "paper",
+                y0: 0,
+                y1: 0,
+                yref: "y",
+                line: { color: "#555", dash: "dot", width: 1 },
+              },
+              // 題組分隔（與其他圖表一致：1-10 / 11-20 / 21-30）
+              {
+                type: "line",
+                x0: 10.5,
+                x1: 10.5,
+                y0: 0,
+                y1: 1,
+                yref: "paper",
+                line: { color: "#aaa", dash: "dot", width: 1 },
+              },
+              {
+                type: "line",
+                x0: 20.5,
+                x1: 20.5,
+                y0: 0,
+                y1: 1,
+                yref: "paper",
+                line: { color: "#aaa", dash: "dot", width: 1 },
+              },
+            ],
+            annotations: [
+              {
+                x: 5.5,
+                y: 1.04,
+                xref: "x",
+                yref: "paper",
+                text: "位置 1–10",
+                showarrow: false,
+                font: { color: "#1A5276", size: 11 },
+              },
+              {
+                x: 15.5,
+                y: 1.04,
+                xref: "x",
+                yref: "paper",
+                text: "位置 11–20",
+                showarrow: false,
+                font: { color: "#7D6608", size: 11 },
+              },
+              {
+                x: 25.5,
+                y: 1.04,
+                xref: "x",
+                yref: "paper",
+                text: "位置 21–30",
+                showarrow: false,
+                font: { color: "#922B21", size: 11 },
+              },
+            ],
+            margin: { t: 60, b: 60, l: 60, r: 20 },
+            height: 460,
+          },
+          pConfig,
+        );
+
+        drawOrderEffectPerQuestionTests();
+      }
+
+      function rankArray(vals) {
+        const n = vals.length;
+        const idx = vals.map((v, i) => ({ v, i })).sort((a, b) => a.v - b.v);
+        const ranks = new Array(n);
+        let k = 0;
+        while (k < n) {
+          let j = k;
+          while (j < n && idx[j].v === idx[k].v) j++;
+          const avg = (k + j + 1) / 2;
+          for (let t = k; t < j; t++) ranks[idx[t].i] = avg;
+          k = j;
+        }
+        return ranks;
+      }
+
+      function pearsonCorr(x, y) {
+        const n = x.length;
+        if (n < 2) return 0;
+        let sx = 0;
+        let sy = 0;
+        for (let i = 0; i < n; i++) {
+          sx += x[i];
+          sy += y[i];
+        }
+        const mx = sx / n;
+        const my = sy / n;
+        let num = 0;
+        let dx = 0;
+        let dy = 0;
+        for (let i = 0; i < n; i++) {
+          const a = x[i] - mx;
+          const b = y[i] - my;
+          num += a * b;
+          dx += a * a;
+          dy += b * b;
+        }
+        if (dx * dy < 1e-20) return 0;
+        return num / Math.sqrt(dx * dy);
+      }
+
+      function spearmanRho(x, y) {
+        return pearsonCorr(rankArray(x), rankArray(y));
+      }
+
+      function erfApprox(x) {
+        const sign = x < 0 ? -1 : 1;
+        const ax = Math.abs(x);
+        const a1 = 0.254829592;
+        const a2 = -0.284496736;
+        const a3 = 1.421413741;
+        const a4 = -1.453152027;
+        const a5 = 1.061405429;
+        const p = 0.3275911;
+        const t = 1 / (1 + p * ax);
+        const y =
+          1 -
+          ((((a5 * t + a4) * t + a3) * t + a2) * t + a1) *
+            t *
+            Math.exp(-ax * ax);
+        return sign * y;
+      }
+
+      function normalCDF(x) {
+        return 0.5 * (1 + erfApprox(x / Math.SQRT2));
+      }
+
+      function spearmanPApprox(rho, n) {
+        if (n < 3) return 1;
+        const z = rho * Math.sqrt(n - 1);
+        return Math.max(0, Math.min(1, 2 * (1 - normalCDF(Math.abs(z)))));
+      }
+
+      function sigStars(p) {
+        if (p < 0.001) return "***";
+        if (p < 0.01) return "**";
+        if (p < 0.05) return "*";
+        return "n.s.";
+      }
+
+      function bhAdjust(pVals) {
+        const m = pVals.length;
+        const pairs = pVals
+          .map((p, i) => ({ i, p: Number.isFinite(p) ? p : 1 }))
+          .sort((a, b) => a.p - b.p);
+        const qSorted = new Array(m).fill(1);
+        let runningMin = 1;
+        for (let k = m - 1; k >= 0; k--) {
+          const rank = k + 1;
+          const raw = (pairs[k].p * m) / rank;
+          runningMin = Math.min(runningMin, raw);
+          qSorted[k] = Math.max(0, Math.min(1, runningMin));
+        }
+        const q = new Array(m).fill(1);
+        pairs.forEach((it, k) => {
+          q[it.i] = qSorted[k];
+        });
+        return q;
+      }
+
+      function drawOrderEffectPerQuestionTests() {
+        if (!D || !Array.isArray(D.participants) || !D.participants.length)
+          return;
+
+        const rows = [];
+        for (let qid = 1; qid <= 30; qid++) {
+          const x = []; // 該題在各受試者中的回答順序位置
+          const y = []; // 該題分數
+          D.participants.forEach((p) => {
+            if (!p || !Array.isArray(p.qidByOrder) || !Array.isArray(p.scores))
+              return;
+            const pos = p.qidByOrder.indexOf(qid) + 1;
+            const s = p.scores[qid - 1];
+            if (!Number.isFinite(pos) || pos <= 0 || !Number.isFinite(s))
+              return;
+            x.push(pos);
+            y.push(s);
+          });
+          const n = x.length;
+          const rho = n >= 3 ? spearmanRho(x, y) : NaN;
+          const p = Number.isFinite(rho) ? spearmanPApprox(rho, n) : 1;
+          rows.push({ qid, n, rho, p });
+        }
+
+        const qVals = bhAdjust(rows.map((r) => r.p));
+        rows.forEach((r, i) => {
+          r.q = qVals[i];
+        });
+
+        rows.sort((a, b) => a.q - b.q || Math.abs(b.rho) - Math.abs(a.rho));
+
+        const htmlRows = rows
+          .map((r) => {
+            const dir =
+              !Number.isFinite(r.rho) || Math.abs(r.rho) < 1e-12
+                ? "—"
+                : r.rho > 0
+                  ? "越後面越偏佮"
+                  : "越後面越偏共";
+            const qCell = r.q < 0.05 ? `<strong>${r.qid}</strong>` : `${r.qid}`;
+            return `<tr>
+      <td>${qCell}</td>
+      <td>${r.n}</td>
+      <td>${Number.isFinite(r.rho) ? r.rho.toFixed(3) : "—"}</td>
+      <td>${r.p < 0.001 ? "&lt; .001" : r.p.toFixed(3)}</td>
+      <td>${r.q < 0.001 ? "&lt; .001" : r.q.toFixed(3)}</td>
+      <td><span class="sig">${sigStars(r.q)}</span></td>
+      <td>${dir}</td>
+    </tr>`;
+          })
+          .join("");
+
+        const nSig = rows.filter((r) => r.q < 0.05).length;
+        const topText =
+          nSig > 0
+            ? `共有 <strong>${nSig}</strong> 題在 FDR 校正後達顯著（q &lt; .05）。`
+            : "FDR 校正後，無題目達顯著（q < .05）。";
+
+        const html = `<p class="note" style="margin-bottom:10px">${topText}</p>
+  <table class="htable">
+    <tr>
+      <th>題號</th>
+      <th>n</th>
+      <th>Spearman ρ</th>
+      <th>p</th>
+      <th>q (FDR)</th>
+      <th>顯著性</th>
+      <th>方向</th>
+    </tr>
+    ${htmlRows}
+  </table>`;
+        const el = document.getElementById("order_effect_table");
+        if (el) el.innerHTML = html;
+      }
+
       function renderDashboard() {
         makeDemoBar("demo_age", "年齡", "年齡分布");
         makeDemoBar("demo_fam", "家庭台語背景", "家庭台語背景");
@@ -3234,6 +3585,7 @@
         drawRtBar();
         drawHQ(currentHQ);
         drawRtHeatmap();
+        drawOrderEffect();
       }
 
       /* ─────────── SECTION: INDIVIDUAL RESPONSES ─────────── */
