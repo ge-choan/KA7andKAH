@@ -1121,6 +1121,37 @@
         </p>
 
         <h3>題目設計kap分組</h3>
+        <a
+          href="https://script.google.com/macros/s/AKfycbyI-HvMUGZhPMxismVWYMrISopFx3mK89ivS3FSwndepyJnxK4XFRzm7AnOYkoQCJkQ/exec"
+          target="_blank"
+          >問卷網頁連結</a
+        >
+        <p>
+          阮先進行內部評價、設計出 10 條組員一致認為是「共」的例句、10
+          條組員一致認為是「佮」的例句，閣有 10
+          條組員認知無一致抑是認為攏有可能的例句。並且透過 Google App Script
+          起問卷網頁予網友添。
+        </p>
+        <p>
+          問卷的內容是隨機排列的 30
+          條題目，每一个題目有組員林佩洵錄音的「共」佮「佮」兩个版本的錄音。受試者錄音聽了就兩个音檔添
+          1~5 个回應數值表示 in 个語感判斷。
+        </p>
+        <div class="scale-bar">
+          <div style="background: #2e86c1">
+            1<br /><small>：干焦會當共</small>
+          </div>
+          <div style="background: #5dade2">
+            2<br /><small>：khah倚共</small>
+          </div>
+          <div style="background: #85929e">3<br /><small>：攏會當</small></div>
+          <div style="background: #e59866">
+            4<br /><small>：khah倚佮</small>
+          </div>
+          <div style="background: #cb4335">
+            5<br /><small>：干焦會當佮</small>
+          </div>
+        </div>
         <div
           class="qscore-toolbar"
           style="margin-top: 10px; margin-bottom: 10px"
@@ -1156,23 +1187,6 @@
         <ul id="design-group-desc-list" style="margin-top: 4px">
           <li>題 1–10：研究者預期答案khah 倚「共」（分數接近 1）</li>
         </ul>
-
-        <h3>量表說明</h3>
-        <div class="scale-bar">
-          <div style="background: #2e86c1">
-            1<br /><small>：干焦會當共</small>
-          </div>
-          <div style="background: #5dade2">
-            2<br /><small>：khah倚共</small>
-          </div>
-          <div style="background: #85929e">3<br /><small>：攏會當</small></div>
-          <div style="background: #e59866">
-            4<br /><small>：khah倚佮</small>
-          </div>
-          <div style="background: #cb4335">
-            5<br /><small>：干焦會當佮</small>
-          </div>
-        </div>
       </section>
 
       <!-- ===== SECTION 2: SAMPLE ===== -->
@@ -1560,7 +1574,7 @@
           </div>
         </div>
 
-        <h3 style="margin-top: 28px">30 題數值總覽（金字塔圖）</h3>
+        <h3 style="margin-top: 28px">30 條題目回應數值總覽（金字塔圖）</h3>
         <p>
           每題是一欄：<strong
             >頂面是 5 分（干焦會當佮）、下面為 1 分（干焦會當共）</strong
@@ -1576,8 +1590,8 @@
         <div id="qscore-detail">
           <h3 style="margin-top: 36px">單題回覆分佈（histogram）</h3>
           <p>
-            對選單揀題號（1–30），抑是對頂面<strong>點揤題號</strong>mā會連到遮。圖是彼題
-            揀1–5 分ê人數分布。
+            對選單揀題號（1–30），抑是揤頂面圖表ê題號mā會連到遮。圖是彼條 ê
+            回應人數分布。
           </p>
           <div class="qscore-toolbar">
             <label for="qscore-select">選擇題目</label>
@@ -1766,20 +1780,20 @@
 
       <!-- ===== SECTION 6: REACTION TIME ===== -->
       <section id="rt">
-        <h2><span class="sec-num">6</span>回答時間分析（判斷難度）</h2>
+        <h2><span class="sec-num">6</span>回答時間分析</h2>
         <p>
-          回答時間（毫秒）可作為判斷難度的指標：反應越慢，代表語者在該題的判斷越猶豫。分析採中位數（對極端值更穩健），並將超過
-          30 秒的極端值截斷。
+          問卷ê網頁程式有計算受試者ê回答時間，計算ê時間範圍是對「兩个題目攏放送了」開始，一直到「落尾揀選項」為止開幾毫秒。
+          下跤ê圖分析每一條題目ê回答時間中位數，並且共回答超過30秒个極端值排除。通看著中央10條題目ê回答時間較長，受試者想較久。
         </p>
 
-        <h3>各題中位數回答時間</h3>
+        <h3>逐條回答時間中位數</h3>
         <div
           class="chart-wrap-tall"
           id="rt_bar"
           style="min-height: 380px"
         ></div>
 
-        <h3 style="margin-top: 24px">各組別前三難題（回答最慢）</h3>
+        <h3 style="margin-top: 24px">逐組回答上慢ê三个題目</h3>
         <p>
           以下顯示各人口變數組別中，中位回答時間最長的三題（★ 第一、▲ 第二、▲
           第三）。
