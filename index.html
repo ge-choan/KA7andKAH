@@ -672,7 +672,9 @@
         border-radius: 999px;
         line-height: 1;
         margin: 0;
-        transition: background 0.15s ease, color 0.15s ease;
+        transition:
+          background 0.15s ease,
+          color 0.15s ease;
         user-select: none;
       }
       .indiv-order-switcher input:checked + label {
@@ -1231,9 +1233,7 @@
               ></div>
             </div>
           </div>
-          <div class="indiv-filter-help">
-            未選取任何條件代表「全部」。
-          </div>
+          <div class="indiv-filter-help">未選取任何條件代表「全部」。</div>
         </div>
 
         <div class="indiv-controls">
@@ -1319,7 +1319,8 @@
 
         <div class="indiv-grid-wrap">
           <div class="indiv-grid-note">
-            30 題逐題回應數值（1–5）。10 欄 3 列由左到右由上到下；hover 顯示題目 ID、題幹與反應時間。
+            30 題逐題回應數值（1–5）。10 欄 3 列由左到右由上到下；hover 顯示題目
+            ID、題幹與反應時間。
           </div>
           <table
             id="indiv-grid-table"
@@ -1340,16 +1341,6 @@
             >單題 histogram</strong
           >。點擊總覽各欄下方的<strong>題號</strong>，會同步切換下方單題圖表與選單；亦可用下拉選單選題。將游標懸停題號上可預覽<strong>題幹</strong>與<strong>平均數值</strong>。
         </p>
-        <div class="note">
-          量表範圍
-          1–5；1=只能共，5=只能佮。分數高低無優劣之分，反映的是語者的語感判斷。題幹自
-          <code>題目資料.csv</code> 載入：建議在<strong>專案根目錄</strong>（與
-          <code>題目資料.csv</code>、<code>web</code> 資料夾同層）執行
-          <code>python3 -m http.server</code>，再以
-          <code>/web/index.html</code> 開啟。若伺服器根目錄僅為
-          <code>web</code>，請將 <code>題目資料.csv</code> 一併放進
-          <code>web</code>。
-        </div>
 
         <div class="indiv-filter-panel" style="margin-top: 14px">
           <h3 class="indiv-panel-title">篩選條件</h3>
@@ -1983,7 +1974,8 @@
             btn.dataset.value = sv;
             btn.textContent = sv;
             btn.addEventListener("click", () => {
-              if (qScoreFilterSets[key].has(sv)) qScoreFilterSets[key].delete(sv);
+              if (qScoreFilterSets[key].has(sv))
+                qScoreFilterSets[key].delete(sv);
               else qScoreFilterSets[key].add(sv);
               btn.classList.toggle("active", qScoreFilterSets[key].has(sv));
               refreshQScoreChartsByFilter();
@@ -2003,7 +1995,9 @@
           if (selectAllBtn)
             selectAllBtn.addEventListener("click", () => {
               qScoreFilterSets[cfg.key].clear();
-              cfg.values.forEach((v) => qScoreFilterSets[cfg.key].add(String(v)));
+              cfg.values.forEach((v) =>
+                qScoreFilterSets[cfg.key].add(String(v)),
+              );
               syncToggleGroup(containerEl, cfg.key);
               refreshQScoreChartsByFilter();
             });
@@ -2118,7 +2112,8 @@
 
       function onQScoreAudioButtonClick(ev) {
         const btn = ev.currentTarget;
-        const src = btn && btn.dataset ? String(btn.dataset.audioSrc || "") : "";
+        const src =
+          btn && btn.dataset ? String(btn.dataset.audioSrc || "") : "";
         if (!src) return;
         const audio = ensureQScoreAudioEl();
         if (audio.src !== src) audio.src = src;
@@ -3315,10 +3310,7 @@
                 return false;
               if (filterSets.fam.size && !filterSets.fam.has(p.fam))
                 return false;
-              if (
-                filterSets.written.size &&
-                !filterSets.written.has(p.written)
-              )
+              if (filterSets.written.size && !filterSets.written.has(p.written))
                 return false;
               return true;
             })
@@ -3396,7 +3388,9 @@
 
         sel.addEventListener("change", onParticipantChange);
 
-        const orderRadios = document.querySelectorAll('input[name="indiv-order"]');
+        const orderRadios = document.querySelectorAll(
+          'input[name="indiv-order"]',
+        );
         orderRadios.forEach((r) => r.addEventListener("change", onOrderChange));
 
         if (prevBtn)
