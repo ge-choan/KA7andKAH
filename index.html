@@ -1044,7 +1044,7 @@
       <section id="intro" style="margin-top: 28px">
         <h1>台語「共/佮」判斷實驗</h1>
         <p style="color: var(--subtext); margin-top: 4px; font-size: 14px">
-          臺灣師範大學台灣語文學系|語言實驗概論課程小組作業|陳建中、林佩洵、范文彥、許毅全
+          臺灣師範大學台灣語文學系，語言實驗概論課程小組作業，陳建中、林佩洵、范文彥、許毅全，2026。
         </p>
 
         <p id="data-load-note" class="note" style="display: none"></p>
@@ -1072,11 +1072,11 @@
 
         <h3>量表說明</h3>
         <div class="scale-bar">
-          <div style="background: #2e86c1">1<br /><small>只能共</small></div>
+          <div style="background: #2e86c1">1<br /><small>干焦會當共</small></div>
           <div style="background: #5dade2">2<br /><small>偏共</small></div>
           <div style="background: #85929e">3<br /><small>都可以</small></div>
           <div style="background: #e59866">4<br /><small>偏佮</small></div>
-          <div style="background: #cb4335">5<br /><small>只能佮</small></div>
+          <div style="background: #cb4335">5<br /><small>干焦會當佮</small></div>
         </div>
 
         <h3>題目分組設計</h3>
@@ -1337,9 +1337,9 @@
       <section id="scores">
         <h2><span class="sec-num">3</span>逐題數值分布</h2>
         <p>
-          下跤先呈現<strong>30 題總覽</strong>，再接<strong
-            >單題 histogram</strong
-          >。點擊總覽各欄下方的<strong>題號</strong>，會同步切換下方單題圖表與選單；亦可用下拉選單選題。將游標懸停題號上可預覽<strong>題幹</strong>與<strong>平均數值</strong>。
+          下跤<strong>30題會當做1改看</strong>，閣來是<strong
+            >每1題ê histogram</strong
+          >。點揤總覽逐欄下跤ê<strong>題號</strong>，下方ê圖表kah選單會隨切換；mā 會當用點落式選單來揀。共游標停留tī題號上tō會當看<strong>題目內容</strong>kap<strong>平均數值</strong>。
         </p>
 
         <div class="indiv-filter-panel" style="margin-top: 14px">
@@ -1471,7 +1471,7 @@
         <h3 style="margin-top: 28px">30 題數值總覽（置中金字塔）</h3>
         <p>
           每題為一欄：<strong
-            >上方為 5 分（只能佮）、下方為 1 分（只能共）</strong
+            >上方為 5 分（干焦會當佮）、下方為 1 分（干焦會當共）</strong
           >；每一條水平長條以<strong>中央鉛直線</strong>對稱向左右延伸，總寬度代表該分的人數。圖表<strong>左側</strong>亦有數值方向說明。<strong>點擊題號</strong>可開啟下方該題詳圖；游標懸停題號可查看<strong>題幹</strong>與<strong>回答平均數</strong>。30
           題橫向排列；若螢幕寬度不足，請<strong>左右捲動</strong>瀏覽。
         </p>
@@ -2155,7 +2155,7 @@
             },
             xaxis: {
               title: {
-                text: "數值（1=只能共 … 5=只能佮）",
+                text: "數值（1=干焦會當共 … 5=干焦會當佮）",
                 font: { size: 12 },
               },
               range: [0.4, 5.6],
@@ -2211,7 +2211,7 @@
 
         const hint = document.createElement("div");
         hint.className = "pyramid-axis-hint";
-        hint.innerHTML = `<div class="pyramid-axis-hint-chart"><div><strong>5</strong>只能佮</div><div class="pyramid-hint-mid">（由上<br>而下）</div><div><strong>1</strong>只能共</div></div><div class="pyramid-axis-hint-spacer"></div>`;
+        hint.innerHTML = `<div class="pyramid-axis-hint-chart"><div><strong>5</strong>干焦會當佮</div><div class="pyramid-hint-mid">（由上<br>而下）</div><div><strong>1</strong>干焦會當共</div></div><div class="pyramid-axis-hint-spacer"></div>`;
 
         const scroll = document.createElement("div");
         scroll.className = "pyramid-overview-scroll";
@@ -2446,11 +2446,11 @@
               dtick: 1,
               ticktext: [
                 "",
-                "1 只能共",
+                "1 干焦會當共",
                 "2 偏共",
                 "3 都可",
                 "4 偏佮",
-                "5 只能佮",
+                "5 干焦會當佮",
                 "",
               ],
               tickvals: [0, 1, 2, 3, 4, 5, 6],
@@ -2505,7 +2505,7 @@
 
         const hint = document.createElement("div");
         hint.className = "pyramid-axis-hint";
-        hint.innerHTML = `<div class="pyramid-axis-hint-chart"><div><strong>5</strong>只能佮</div><div class="pyramid-hint-mid">（由上<br>而下）</div><div><strong>1</strong>只能共</div></div><div class="pyramid-axis-hint-spacer"></div>`;
+        hint.innerHTML = `<div class="pyramid-axis-hint-chart"><div><strong>5</strong>干焦會當佮</div><div class="pyramid-hint-mid">（由上<br>而下）</div><div><strong>1</strong>干焦會當共</div></div><div class="pyramid-axis-hint-spacer"></div>`;
 
         const scroll = document.createElement("div");
         scroll.className = "pyramid-overview-scroll";
@@ -3119,7 +3119,7 @@
       }
 
       function scoreToCellStyle(score) {
-        // 依照量表 1(只能共) → 5(只能佮) 做視覺化顏色
+        // 依照量表 1(干焦會當共) → 5(干焦會當佮) 做視覺化顏色
         switch (score) {
           case 1:
             return { bg: "rgba(46, 134, 193, 0.92)", fg: "#fff" };

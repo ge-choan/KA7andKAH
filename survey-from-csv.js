@@ -73,7 +73,7 @@
     if (!t) return null;
     if (/書寫\/?閱讀.*無礙/.test(t)) return '書寫無問題';
     if (/有大概學過讀寫/.test(t) && /實際使用/.test(t)) return '學過無定用';
-    if (/完全沒學過/.test(t)) return '未學書寫';
+    if (/完全沒學過/.test(t)) return '無學過書寫';
     return null;
   }
 
