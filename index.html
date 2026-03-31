@@ -1128,12 +1128,8 @@
             >
               &lt;
             </button>
-            <div
-              id="design-group-label"
-              class="qscore-select"
-              aria-live="polite"
-            >
-              題 1–10（預期偏共）
+            <div id="design-group-label" class="qscore-select" aria-live="polite">
+              題 1–10（預期倚共）
             </div>
             <button
               type="button"
@@ -1153,15 +1149,11 @@
 
         <h3>量表說明</h3>
         <div class="scale-bar">
-          <div style="background: #2e86c1">
-            1<br /><small>干焦會當共</small>
-          </div>
-          <div style="background: #5dade2">2<br /><small>偏共</small></div>
-          <div style="background: #85929e">3<br /><small>都可以</small></div>
-          <div style="background: #e59866">4<br /><small>偏佮</small></div>
-          <div style="background: #cb4335">
-            5<br /><small>干焦會當佮</small>
-          </div>
+          <div style="background: #2e86c1">1<br /><small>：干焦會當共</small></div>
+          <div style="background: #5dade2">2<br /><small>：khah倚共</small></div>
+          <div style="background: #85929e">3<br /><small>：攏會當</small></div>
+          <div style="background: #e59866">4<br /><small>：khah倚佮</small></div>
+          <div style="background: #cb4335">5<br /><small>：干焦會當佮</small></div>
         </div>
       </section>
 
@@ -1404,7 +1396,7 @@
           ></table>
         </div>
 
-        <h3>開放題回應</h3>
+        <h3>受試者對家己選擇ê原則ê判斷</h3>
         <div id="indiv-open-text" class="indiv-open-text">—</div>
       </section>
 
@@ -1540,16 +1532,16 @@
             </div>
           </div>
           <div class="indiv-filter-help">
-            預設為「全部」。點選項目可切換；若某維度未勾選任何項目，代表該維度不限制。
+            預設是「全選」。揤項目會當切換篩選條件；若某分類無揀任何變數，預設是彼ê分類全選。
           </div>
         </div>
 
         <h3 style="margin-top: 28px">30 題數值總覽（置中金字塔）</h3>
         <p>
-          每題為一欄：<strong
-            >上方為 5 分（干焦會當佮）、下方為 1 分（干焦會當共）</strong
-          >；每一條水平長條以<strong>中央鉛直線</strong>對稱向左右延伸，總寬度代表該分的人數。圖表<strong>左側</strong>亦有數值方向說明。<strong>點擊題號</strong>可開啟下方該題詳圖；游標懸停題號可查看<strong>內容</strong>與<strong>回答平均數</strong>。30
-          題橫向排列；若螢幕寬度不足，請<strong>左右捲動</strong>瀏覽。
+          每題是一欄：<strong
+            >頂面是 5 分（干焦會當佮）、下面為 1 分（干焦會當共）</strong
+          >；每一條橫線對<strong>中央直線</strong>對稱左右延伸，總闊度代表彼ê選項ê人數。圖表<strong>倒爿</strong>mā有數值方向說明。<strong>點揤題號</strong>會當phah開下跤彼題ê詳細回答分佈圖；滑鼠停留tī題號會當看<strong>題目內容</strong>kap<strong>回答平均數</strong>。30
+          題排橫--ê；若是螢幕闊度無夠，請<strong>左右捲</strong>來瀏覽。
         </p>
         <div
           class="pyramid-overview-outer"
@@ -1558,10 +1550,10 @@
         ></div>
 
         <div id="qscore-detail">
-          <h3 style="margin-top: 36px">單題數值（histogram）</h3>
+          <h3 style="margin-top: 36px">單題回覆分佈（histogram）</h3>
           <p>
-            從選單選擇題號（1–30），或自上方總覽<strong>點擊題號</strong>連動至此。圖為該題
-            1–5 分之人數分布。
+            對選單揀題號（1–30），抑是對頂面<strong>點揤題號</strong>mā會連到遮。圖是彼題
+          揀1–5 分ê人數分布。
           </p>
           <div class="qscore-toolbar">
             <label for="qscore-select">選擇題目</label>
@@ -1708,7 +1700,7 @@
           N。顏色越藍代表越偏「共」（分數低），越紅代表越偏「佮」（分數高）。
         </p>
         <div class="note">
-          顏色代表平均分（藍=偏共，紅=偏佮）；格內顯示平均分及樣本數 n。<strong
+          顏色代表平均分（藍=khah倚共，紅=khah倚佮）；格內顯示平均分及樣本數 n。<strong
             >♟ 每個代表 10 位受試者</strong
           >（不足 10 人計 1 個，n&lt;5 的格子數值穩定性較低）。
         </div>
@@ -1735,13 +1727,13 @@
         <!-- 第二層：選擇題組 -->
         <div class="tab-bar" id="ct_tabs" style="margin-top: 6px">
           <button class="tab-btn active" onclick="switchCT('q1_10')">
-            題 1–10（預期偏共）
+            題 1–10（預期倚共）
           </button>
           <button class="tab-btn" onclick="switchCT('q11_20')">
             題 11–20（預期中性）
           </button>
           <button class="tab-btn" onclick="switchCT('q21_30')">
-            題 21–30（預期偏佮）
+            題 21–30（預期倚佮）
           </button>
         </div>
 
@@ -1846,9 +1838,9 @@
         q21_30: "#C0392B",
       };
       const LABELS = {
-        q1_10: "題1-10 (預期偏共)",
+        q1_10: "題1-10 (預期倚共)",
         q11_20: "題11-20 (預期中性)",
-        q21_30: "題21-30 (預期偏佮)",
+        q21_30: "題21-30 (預期倚佮)",
       };
       const pLayout = {
         paper_bgcolor: "#fff",
@@ -1974,10 +1966,10 @@
         const bank = D && D.question_bank && D.question_bank[q - 1];
         const stem = bank && bank.content ? String(bank.content).trim() : "";
         if (stem) return `題 ${q}：${stem}`;
-        let tag = "預期偏共";
+        let tag = "預期倚共";
         if (q > 10 && q <= 20) tag = "預期中性";
-        if (q > 20) tag = "預期偏佮";
-        return `題 ${q}（${tag}，內容未載入）`;
+        if (q > 20) tag = "預期倚佮";
+        return `題 ${q}（${tag}，題幹未載入）`;
       }
 
       /* ─────────── 題目設計：三組題目預覽（每次 10 題） ─────────── */
@@ -1986,7 +1978,7 @@
           id: "q1_10",
           start: 1,
           end: 10,
-          label: "題 1–10（預期偏共）",
+          label: "題 1–10（預期倚共）",
           desc: "題 1–10：研究者預期答案khah 倚「共」（分數接近 1）",
         },
         {
@@ -2000,7 +1992,7 @@
           id: "q21_30",
           start: 21,
           end: 30,
-          label: "題 21–30（預期偏佮）",
+          label: "題 21–30（預期倚佮）",
           desc: "題 21–30：研究者預期答案khah 倚「佮」（分數接近 5）",
         },
       ];
@@ -2645,11 +2637,11 @@
               dtick: 1,
               ticktext: [
                 "",
-                "1 干焦會當共",
-                "2 偏共",
-                "3 都可",
-                "4 偏佮",
-                "5 干焦會當佮",
+                "1 ：干焦會當共",
+                "2 ：khah倚共",
+                "3 ：攏會當",
+                "4 ：khah倚佮",
+                "5 ：干焦會當佮",
                 "",
               ],
               tickvals: [0, 1, 2, 3, 4, 5, 6],
@@ -2981,11 +2973,11 @@
                 tickvals: [1.5, 2, 2.5, 3, 3.5, 4, 4.5],
                 ticktext: [
                   "1.5",
-                  "2 偏共",
+                  "2 khah倚共",
                   "2.5",
                   "3 中性",
                   "3.5",
-                  "4 偏佮",
+                  "4 khah倚佮",
                   "4.5",
                 ],
                 len: 0.8,
