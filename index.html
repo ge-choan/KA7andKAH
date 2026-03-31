@@ -1114,8 +1114,11 @@
         </p>
 
         <h3>題目設計kap分組</h3>
-        <div class="qscore-toolbar" style="margin-top: 10px; margin-bottom: 10px">
-          <label>題目聲音與題幹預覽（每次顯示 10 題）</label>
+        <div
+          class="qscore-toolbar"
+          style="margin-top: 10px; margin-bottom: 10px"
+        >
+          <label>題目聲音與內容預覽（每次顯示 10 題）</label>
           <div class="indiv-participant-row">
             <button
               type="button"
@@ -1125,7 +1128,11 @@
             >
               &lt;
             </button>
-            <div id="design-group-label" class="qscore-select" aria-live="polite">
+            <div
+              id="design-group-label"
+              class="qscore-select"
+              aria-live="polite"
+            >
               題 1–10（預期偏共）
             </div>
             <button
@@ -1141,18 +1148,20 @@
         <div id="design-q-list" style="margin-bottom: 10px">（載入中…）</div>
 
         <ul id="design-group-desc-list" style="margin-top: 4px">
-          <li>
-            題 1–10：研究者預期答案khah 倚「共」（分數接近 1）
-          </li>
+          <li>題 1–10：研究者預期答案khah 倚「共」（分數接近 1）</li>
         </ul>
 
         <h3>量表說明</h3>
         <div class="scale-bar">
-          <div style="background: #2e86c1">1<br /><small>干焦會當共</small></div>
+          <div style="background: #2e86c1">
+            1<br /><small>干焦會當共</small>
+          </div>
           <div style="background: #5dade2">2<br /><small>偏共</small></div>
           <div style="background: #85929e">3<br /><small>都可以</small></div>
           <div style="background: #e59866">4<br /><small>偏佮</small></div>
-          <div style="background: #cb4335">5<br /><small>干焦會當佮</small></div>
+          <div style="background: #cb4335">
+            5<br /><small>干焦會當佮</small>
+          </div>
         </div>
       </section>
 
@@ -1405,7 +1414,8 @@
         <p>
           下跤<strong>30題會當做1改看</strong>，閣來是<strong
             >每1題ê histogram</strong
-          >。點揤總覽逐欄下跤ê<strong>題號</strong>，下方ê圖表kah選單會隨切換；mā 會當用點落式選單來揀。共游標停留tī題號上tō會當看<strong>題目內容</strong>kap<strong>平均數值</strong>。
+          >。點揤總覽逐欄下跤ê<strong>題號</strong>，下方ê圖表kah選單會隨切換；mā
+          會當用點落式選單來揀。共游標停留tī題號上tō會當看<strong>題目內容</strong>kap<strong>平均數值</strong>。
         </p>
 
         <div class="indiv-filter-panel" style="margin-top: 14px">
@@ -1538,7 +1548,7 @@
         <p>
           每題為一欄：<strong
             >上方為 5 分（干焦會當佮）、下方為 1 分（干焦會當共）</strong
-          >；每一條水平長條以<strong>中央鉛直線</strong>對稱向左右延伸，總寬度代表該分的人數。圖表<strong>左側</strong>亦有數值方向說明。<strong>點擊題號</strong>可開啟下方該題詳圖；游標懸停題號可查看<strong>題幹</strong>與<strong>回答平均數</strong>。30
+          >；每一條水平長條以<strong>中央鉛直線</strong>對稱向左右延伸，總寬度代表該分的人數。圖表<strong>左側</strong>亦有數值方向說明。<strong>點擊題號</strong>可開啟下方該題詳圖；游標懸停題號可查看<strong>內容</strong>與<strong>回答平均數</strong>。30
           題橫向排列；若螢幕寬度不足，請<strong>左右捲動</strong>瀏覽。
         </p>
         <div
@@ -1944,7 +1954,7 @@
         let tag = "預期偏共";
         if (q > 10 && q <= 20) tag = "預期中性";
         if (q > 20) tag = "預期偏佮";
-        return `題 ${q}（${tag}，題幹未載入）`;
+        return `題 ${q}（${tag}，內容未載入）`;
       }
 
       /* ─────────── 題目設計：三組題目預覽（每次 10 題） ─────────── */
@@ -1975,7 +1985,8 @@
 
       function onDesignAudioButtonClick(ev) {
         const btn = ev.currentTarget;
-        const src = btn && btn.dataset ? String(btn.dataset.audioSrc || "") : "";
+        const src =
+          btn && btn.dataset ? String(btn.dataset.audioSrc || "") : "";
         if (!src) return;
         const audio = ensureQScoreAudioEl();
         if (audio.src !== src) audio.src = src;
@@ -2016,7 +2027,7 @@
           const stem =
             bank && bank.content
               ? bank.content
-              : "（未能載入題幹：請確認 <code>題目資料.csv</code> 已正確放置並以本機伺服器開啟網頁。）";
+              : "（未能載入內容：請確認 <code>題目資料.csv</code> 已正確放置並以本機伺服器開啟網頁。）";
           const options =
             bank && Array.isArray(bank.options)
               ? bank.options.filter((u) => String(u || "").trim())
@@ -2235,7 +2246,7 @@
         const stem =
           bank && bank.content
             ? bank.content
-            : "（未能載入題幹：請將 <code>題目資料.csv</code> 置於與本頁相同或上一層目錄，並以本機伺服器開啟網頁。）";
+            : "（未能載入內容：請將 <code>題目資料.csv</code> 置於與本頁相同或上一層目錄，並以本機伺服器開啟網頁。）";
         const inter =
           bank && bank.interactivity ? `互動性分組：${bank.interactivity}` : "";
         el.innerHTML = `<strong>第 ${q} 題</strong>　<span style="color:var(--subtext);font-weight:600;">${qScoreDesignLine(q)}</span><br>${stem}${inter ? `<div class="qscore-meta">${inter}</div>` : ""}`;
@@ -2343,7 +2354,7 @@
         );
       }
 
-      /* 30 題：每題一欄置中金字塔（對稱水平條）；圖上由上而下為 5→1，題號 hover 顯示題幹與平均 */
+      /* 30 題：每題一欄置中金字塔（對稱水平條）；圖上由上而下為 5→1，題號 hover 顯示內容與平均 */
       function drawAllQuestionsScoreOverview() {
         const outer = document.getElementById("allq_scores_overview");
         if (!outer) return;
@@ -2432,7 +2443,7 @@
             ? scores.reduce((a, b) => a + b, 0) / scores.length
             : NaN;
           const bank = D.question_bank && D.question_bank[q - 1];
-          const stem = bank && bank.content ? bank.content : "（題幹未載入）";
+          const stem = bank && bank.content ? bank.content : "（內容未載入）";
 
           const cell = document.createElement("div");
           cell.className = "pyramid-cell";
@@ -2448,7 +2459,7 @@
           cap.setAttribute("tabindex", "0");
           cap.setAttribute(
             "aria-label",
-            `題${q}，點擊以於下方顯示該題 histogram；懸停或聚焦可讀取題幹與平均數值`,
+            `題${q}，點擊以於下方顯示該題 histogram；懸停或聚焦可讀取內容與平均數值`,
           );
           cap.addEventListener("click", (ev) => onPyramidCapActivate(ev, q));
           cap.addEventListener("keydown", (ev) => {
@@ -3276,8 +3287,8 @@
         const rtLabel = Number.isFinite(rtMs) ? `${rtMs.toFixed(0)} ms` : "—";
 
         const tip = ensureIndivCellTooltip();
-        tip.innerHTML = `<div class="tip-id">題目ID：${qid}</div><div class="tip-rt">反應時間：${rtLabel}</div><div class="tip-stem">題幹：${escapeHtml(
-          stem || "（題幹未載入）",
+        tip.innerHTML = `<div class="tip-id">題目ID：${qid}</div><div class="tip-rt">反應時間：${rtLabel}</div><div class="tip-stem">內容：${escapeHtml(
+          stem || "（內容未載入）",
         )}</div>`;
         tip.style.display = "block";
         positionIndivCellTooltip(ev);
@@ -3622,8 +3633,12 @@
           ).length;
           renderDashboard();
           // 題目設計（每次 10 題）初始化
-          const designPrevBtn = document.getElementById("design-group-prev-btn");
-          const designNextBtn = document.getElementById("design-group-next-btn");
+          const designPrevBtn = document.getElementById(
+            "design-group-prev-btn",
+          );
+          const designNextBtn = document.getElementById(
+            "design-group-next-btn",
+          );
           if (designPrevBtn)
             designPrevBtn.addEventListener("click", () =>
               changeDesignGroupByStep(-1),
