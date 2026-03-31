@@ -383,6 +383,49 @@
         color: var(--subtext);
         background: #f6f8fa;
       }
+      #design-q-list {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .design-q-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 8px 12px;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        background: var(--light);
+      }
+      .design-q-id {
+        flex: 0 0 68px;
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--primary);
+        white-space: nowrap;
+      }
+      .design-q-stem {
+        flex: 1 1 auto;
+        min-width: 0;
+        font-size: 14px;
+        line-height: 1.4;
+        color: var(--text);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .design-q-audio-controls {
+        flex: 0 0 auto;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .design-q-audio-btn {
+        min-width: 92px;
+        padding: 6px 10px;
+        font-size: 12px;
+        line-height: 1.2;
+      }
 
       /* INDIVIDUAL RESPONSES (單一受試者逐題回應) */
       #individual {
@@ -1070,6 +1113,39 @@
           A、B 兩個音檔了後，選擇上符合家己語感ê選項。
         </p>
 
+        <h3>題目設計kap分組</h3>
+        <div class="qscore-toolbar" style="margin-top: 10px; margin-bottom: 10px">
+          <label>題目聲音與題幹預覽（每次顯示 10 題）</label>
+          <div class="indiv-participant-row">
+            <button
+              type="button"
+              id="design-group-prev-btn"
+              class="indiv-nav-btn"
+              aria-label="上一組題目"
+            >
+              &lt;
+            </button>
+            <div id="design-group-label" class="qscore-select" aria-live="polite">
+              題 1–10（預期偏共）
+            </div>
+            <button
+              type="button"
+              id="design-group-next-btn"
+              class="indiv-nav-btn"
+              aria-label="下一組題目"
+            >
+              &gt;
+            </button>
+          </div>
+        </div>
+        <div id="design-q-list" style="margin-bottom: 10px">（載入中…）</div>
+
+        <ul id="design-group-desc-list" style="margin-top: 4px">
+          <li>
+            題 1–10：研究者預期答案khah 倚「共」（分數接近 1）
+          </li>
+        </ul>
+
         <h3>量表說明</h3>
         <div class="scale-bar">
           <div style="background: #2e86c1">1<br /><small>干焦會當共</small></div>
@@ -1078,16 +1154,6 @@
           <div style="background: #e59866">4<br /><small>偏佮</small></div>
           <div style="background: #cb4335">5<br /><small>干焦會當佮</small></div>
         </div>
-
-        <h3>題目分組設計</h3>
-        <p>
-          <span style="color: var(--red); font-weight: 700">題 1–10</span
-          >：研究者預期答案khah 倚「共」（接近 1）&nbsp;&nbsp;
-          <span style="color: var(--orange); font-weight: 700">題 11–20</span
-          >：研究者預期兩者攏會使（接近 3）&nbsp;&nbsp;
-          <span style="color: var(--green); font-weight: 700">題 21–30</span
-          >：研究者預期答案khah倚「佮」（接近 5）
-        </p>
       </section>
 
       <!-- ===== SECTION 2: SAMPLE ===== -->
@@ -1319,8 +1385,8 @@
 
         <div class="indiv-grid-wrap">
           <div class="indiv-grid-note">
-            30 題逐題回應數值（1–5）。10 欄 3 列對倒爿到正爿，頂面到下面；hover 顯示題目
-            ID、題目內容kap反應時間。
+            30 題逐題回應數值（1–5）。10 欄 3 列對倒爿到正爿，頂面到下面；hover
+            顯示題目 ID、題目內容kap反應時間。
           </div>
           <table
             id="indiv-grid-table"
@@ -1879,6 +1945,105 @@
         if (q > 10 && q <= 20) tag = "預期中性";
         if (q > 20) tag = "預期偏佮";
         return `題 ${q}（${tag}，題幹未載入）`;
+      }
+
+      /* ─────────── 題目設計：三組題目預覽（每次 10 題） ─────────── */
+      const designGroups = [
+        {
+          id: "q1_10",
+          start: 1,
+          end: 10,
+          label: "題 1–10（預期偏共）",
+          desc: "題 1–10：研究者預期答案khah 倚「共」（分數接近 1）",
+        },
+        {
+          id: "q11_20",
+          start: 11,
+          end: 20,
+          label: "題 11–20（預期中性）",
+          desc: "題 11–20：研究者預期「共」、「佮」攏會使（分數接近 3）",
+        },
+        {
+          id: "q21_30",
+          start: 21,
+          end: 30,
+          label: "題 21–30（預期偏佮）",
+          desc: "題 21–30：研究者預期答案khah 倚「佮」（分數接近 5）",
+        },
+      ];
+      let currentDesignGroupIdx = 0;
+
+      function onDesignAudioButtonClick(ev) {
+        const btn = ev.currentTarget;
+        const src = btn && btn.dataset ? String(btn.dataset.audioSrc || "") : "";
+        if (!src) return;
+        const audio = ensureQScoreAudioEl();
+        if (audio.src !== src) audio.src = src;
+        audio.currentTime = 0;
+        audio.play().catch((err) => {
+          console.warn("播放音檔失敗", err);
+        });
+      }
+
+      function makeDesignAudioButton(src, idx) {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className =
+          "qscore-audio-btn " + (idx === 0 ? "audio-left" : "audio-right");
+        const tendency = idx === 0 ? "共" : "佮";
+        btn.dataset.audioSrc = src || "";
+        btn.disabled = !src;
+        btn.textContent = src
+          ? `播放音檔 ${idx + 1}（${tendency}）`
+          : `音檔 ${idx + 1}（${tendency}，無）`;
+        btn.addEventListener("click", onDesignAudioButtonClick);
+        return btn;
+      }
+
+      function renderDesignGroup() {
+        const group = designGroups[currentDesignGroupIdx];
+        const labelEl = document.getElementById("design-group-label");
+        const listEl = document.getElementById("design-q-list");
+        const descListEl = document.getElementById("design-group-desc-list");
+        if (!group || !labelEl || !listEl || !descListEl) return;
+
+        labelEl.textContent = group.label;
+        descListEl.innerHTML = `<li>${group.desc}</li>`;
+        listEl.innerHTML = "";
+
+        for (let q = group.start; q <= group.end; q++) {
+          const bank = D && D.question_bank && D.question_bank[q - 1];
+          const stem =
+            bank && bank.content
+              ? bank.content
+              : "（未能載入題幹：請確認 <code>題目資料.csv</code> 已正確放置並以本機伺服器開啟網頁。）";
+          const options =
+            bank && Array.isArray(bank.options)
+              ? bank.options.filter((u) => String(u || "").trim())
+              : [];
+          const row = document.createElement("div");
+          row.className = "design-q-item";
+          row.innerHTML = `<div class="design-q-id">第 ${q} 題</div><div class="design-q-stem" title="${escapeHtml(
+            stem,
+          )}">${escapeHtml(stem)}</div>`;
+
+          const controls = document.createElement("div");
+          controls.className = "design-q-audio-controls";
+          const btn1 = makeDesignAudioButton(options[0] || "", 0);
+          const btn2 = makeDesignAudioButton(options[1] || "", 1);
+          btn1.classList.add("design-q-audio-btn");
+          btn2.classList.add("design-q-audio-btn");
+          controls.appendChild(btn1);
+          controls.appendChild(btn2);
+          row.appendChild(controls);
+          listEl.appendChild(row);
+        }
+      }
+
+      function changeDesignGroupByStep(step) {
+        const len = designGroups.length;
+        currentDesignGroupIdx = (currentDesignGroupIdx + step + len) % len;
+        renderDesignGroup();
       }
 
       // 各題數值分布篩選：空集合代表該維度不限制（等同全部）
@@ -3456,6 +3621,18 @@
             D.per_question_scores,
           ).length;
           renderDashboard();
+          // 題目設計（每次 10 題）初始化
+          const designPrevBtn = document.getElementById("design-group-prev-btn");
+          const designNextBtn = document.getElementById("design-group-next-btn");
+          if (designPrevBtn)
+            designPrevBtn.addEventListener("click", () =>
+              changeDesignGroupByStep(-1),
+            );
+          if (designNextBtn)
+            designNextBtn.addEventListener("click", () =>
+              changeDesignGroupByStep(1),
+            );
+          renderDesignGroup();
           const audioBtn1 = document.getElementById("qscore-audio-1");
           const audioBtn2 = document.getElementById("qscore-audio-2");
           if (audioBtn1)
